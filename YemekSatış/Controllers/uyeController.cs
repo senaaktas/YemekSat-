@@ -9,7 +9,7 @@ namespace YemekSatış.Controllers
     public class uyeController : Controller
     {
         // GET: uye
-        public ActionResult Index()
+        public ActionResult GirisYap()
         {
             return View();
         }
