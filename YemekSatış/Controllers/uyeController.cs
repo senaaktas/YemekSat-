@@ -26,12 +26,13 @@ namespace YemekSatış.Controllers
                 if (cus != null)
                 {
                     Session["loginkey"] = login;
-                    return RedirectToAction("home", "Index");
+                    return RedirectToAction("Index", "home");
 
                 }
                 
             }
             ViewBag.Title = "Giriş Yap";
+
 
             return View(login);
         }
