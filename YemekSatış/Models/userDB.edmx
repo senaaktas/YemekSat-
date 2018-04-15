@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="evyemegiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="evyemegiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -131,13 +131,11 @@
           <Property Name="user_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_nickname" Type="varchar" MaxLength="60" />
           <Property Name="user_name" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="user_surname" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="city_id" Type="smallint" Nullable="false" />
           <Property Name="town_id" Type="smallint" Nullable="false" />
           <Property Name="district_id" Type="smallint" Nullable="false" />
           <Property Name="street_id" Type="int" Nullable="false" />
           <Property Name="user_email" Type="varchar" MaxLength="160" Nullable="false" />
-          <Property Name="user_password_hash" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="user_password_salt" Type="char" MaxLength="32" Nullable="false" />
           <Property Name="user_active" Type="bit" Nullable="false" />
           <Property Name="user_status" Type="bit" />
@@ -340,6 +338,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="evyemegiModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="city" EntityType="Self.city" Schema="dbo" store:Type="Tables" />
@@ -418,25 +447,132 @@
             <End Role="user" EntitySet="user" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="evyemegiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="evyemegiEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admin" EntityType="evyemegiModel.admin" />
+          <EntitySet Name="city" EntityType="evyemegiModel.city" />
+          <EntitySet Name="district" EntityType="evyemegiModel.district" />
+          <EntitySet Name="food_catagory" EntityType="evyemegiModel.food_catagory" />
+          <EntitySet Name="foods" EntityType="evyemegiModel.foods" />
+          <EntitySet Name="menu" EntityType="evyemegiModel.menu" />
+          <EntitySet Name="menu_detail" EntityType="evyemegiModel.menu_detail" />
+          <EntitySet Name="order" EntityType="evyemegiModel.order" />
+          <EntitySet Name="street" EntityType="evyemegiModel.street" />
+          <EntitySet Name="sysdiagrams" EntityType="evyemegiModel.sysdiagrams" />
+          <EntitySet Name="town" EntityType="evyemegiModel.town" />
+          <EntitySet Name="user" EntityType="evyemegiModel.user" />
+          <AssociationSet Name="FK_district_city" Association="evyemegiModel.FK_district_city">
+            <End Role="city" EntitySet="city" />
+            <End Role="district" EntitySet="district" />
+          </AssociationSet>
+          <AssociationSet Name="FK_street_city" Association="evyemegiModel.FK_street_city">
+            <End Role="city" EntitySet="city" />
+            <End Role="street" EntitySet="street" />
+          </AssociationSet>
+          <AssociationSet Name="FK_town_city" Association="evyemegiModel.FK_town_city">
+            <End Role="city" EntitySet="city" />
+            <End Role="town" EntitySet="town" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_city" Association="evyemegiModel.FK_user_city">
+            <End Role="city" EntitySet="city" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_district_town" Association="evyemegiModel.FK_district_town">
+            <End Role="town" EntitySet="town" />
+            <End Role="district" EntitySet="district" />
+          </AssociationSet>
+          <AssociationSet Name="FK_street_district" Association="evyemegiModel.FK_street_district">
+            <End Role="district" EntitySet="district" />
+            <End Role="street" EntitySet="street" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_district" Association="evyemegiModel.FK_user_district">
+            <End Role="district" EntitySet="district" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_foods_food_catagory1" Association="evyemegiModel.FK_foods_food_catagory1">
+            <End Role="food_catagory" EntitySet="food_catagory" />
+            <End Role="foods" EntitySet="foods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_menu_detail_foods1" Association="evyemegiModel.FK_menu_detail_foods1">
+            <End Role="foods" EntitySet="foods" />
+            <End Role="menu_detail" EntitySet="menu_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_menu_detail_menu" Association="evyemegiModel.FK_menu_detail_menu">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="menu_detail" EntitySet="menu_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_menu_user" Association="evyemegiModel.FK_menu_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="menu" EntitySet="menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_menu" Association="evyemegiModel.FK_order_menu">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_user" Association="evyemegiModel.FK_order_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_street_town" Association="evyemegiModel.FK_street_town">
+            <End Role="town" EntitySet="town" />
+            <End Role="street" EntitySet="street" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_street" Association="evyemegiModel.FK_user_street">
+            <End Role="street" EntitySet="street" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_town" Association="evyemegiModel.FK_user_town">
+            <End Role="town" EntitySet="town" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(evyemegiModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(evyemegiModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="admin_id" />
           </Key>
           <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="admin_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="admin_surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="admin_email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="admin_password_hash" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="admin_password_salt" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="admin_create_date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="admin_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="admin_surname" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="admin_email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="admin_password_hash" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="admin_password_salt" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="admin_create_date" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="admin_ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="admin_update_date" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="admin_tel" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="admin_update_date" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="admin_tel" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="city">
           <Key>
@@ -444,13 +580,13 @@
           </Key>
           <Property Name="city_id" Type="Int16" Nullable="false" />
           <Property Name="license_plate" Type="Int16" Nullable="false" />
-          <Property Name="city_name_uppercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="city_name_lowercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="district" Relationship="Self.FK_district_city" FromRole="city" ToRole="district" />
-          <NavigationProperty Name="street" Relationship="Self.FK_street_city" FromRole="city" ToRole="street" />
-          <NavigationProperty Name="town" Relationship="Self.FK_town_city" FromRole="city" ToRole="town" />
-          <NavigationProperty Name="user" Relationship="Self.FK_user_city" FromRole="city" ToRole="user" />
+          <Property Name="city_name_uppercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city_name_lowercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="district" Relationship="evyemegiModel.FK_district_city" FromRole="city" ToRole="district" />
+          <NavigationProperty Name="street" Relationship="evyemegiModel.FK_street_city" FromRole="city" ToRole="street" />
+          <NavigationProperty Name="town" Relationship="evyemegiModel.FK_town_city" FromRole="city" ToRole="town" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_user_city" FromRole="city" ToRole="user" />
         </EntityType>
         <EntityType Name="district">
           <Key>
@@ -459,50 +595,50 @@
           <Property Name="district_id" Type="Int16" Nullable="false" />
           <Property Name="city_id" Type="Int16" Nullable="false" />
           <Property Name="town_id" Type="Int16" Nullable="false" />
-          <Property Name="district_name_uppercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="district_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="district_name_lowercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="zip_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="city" Relationship="Self.FK_district_city" FromRole="district" ToRole="city" />
-          <NavigationProperty Name="town" Relationship="Self.FK_district_town" FromRole="district" ToRole="town" />
-          <NavigationProperty Name="street" Relationship="Self.FK_street_district" FromRole="district" ToRole="street" />
-          <NavigationProperty Name="user" Relationship="Self.FK_user_district" FromRole="district" ToRole="user" />
+          <Property Name="district_name_uppercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="district_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="district_name_lowercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="zip_code" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="city" Relationship="evyemegiModel.FK_district_city" FromRole="district" ToRole="city" />
+          <NavigationProperty Name="town" Relationship="evyemegiModel.FK_district_town" FromRole="district" ToRole="town" />
+          <NavigationProperty Name="street" Relationship="evyemegiModel.FK_street_district" FromRole="district" ToRole="street" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_user_district" FromRole="district" ToRole="user" />
         </EntityType>
         <EntityType Name="food_catagory">
           <Key>
             <PropertyRef Name="food_catagory_id" />
           </Key>
           <Property Name="food_catagory_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="food_catagory_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="foods" Relationship="Self.FK_foods_food_catagory1" FromRole="food_catagory" ToRole="foods" />
+          <Property Name="food_catagory_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="foods" Relationship="evyemegiModel.FK_foods_food_catagory1" FromRole="food_catagory" ToRole="foods" />
         </EntityType>
         <EntityType Name="foods">
           <Key>
             <PropertyRef Name="food_id" />
           </Key>
           <Property Name="food_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="food_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="food_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="food_img_src" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="food_catagory_id" Type="Byte" Nullable="false" />
           <Property Name="food_status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="food_catagory" Relationship="Self.FK_foods_food_catagory1" FromRole="foods" ToRole="food_catagory" />
-          <NavigationProperty Name="menu_detail" Relationship="Self.FK_menu_detail_foods1" FromRole="foods" ToRole="menu_detail" />
+          <NavigationProperty Name="food_catagory" Relationship="evyemegiModel.FK_foods_food_catagory1" FromRole="foods" ToRole="food_catagory" />
+          <NavigationProperty Name="menu_detail" Relationship="evyemegiModel.FK_menu_detail_foods1" FromRole="foods" ToRole="menu_detail" />
         </EntityType>
         <EntityType Name="menu">
           <Key>
             <PropertyRef Name="menu_id" />
           </Key>
           <Property Name="menu_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="menu_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="menu_name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="user_id" Type="Int64" Nullable="false" />
-          <Property Name="menu_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="menu_price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="menu_valid_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="menu_create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="menu_delivery_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="menu_score" Type="Double" />
-          <NavigationProperty Name="menu_detail" Relationship="Self.FK_menu_detail_menu" FromRole="menu" ToRole="menu_detail" />
-          <NavigationProperty Name="user" Relationship="Self.FK_menu_user" FromRole="menu" ToRole="user" />
-          <NavigationProperty Name="order" Relationship="Self.FK_order_menu" FromRole="menu" ToRole="order" />
+          <NavigationProperty Name="menu_detail" Relationship="evyemegiModel.FK_menu_detail_menu" FromRole="menu" ToRole="menu_detail" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_menu_user" FromRole="menu" ToRole="user" />
+          <NavigationProperty Name="order" Relationship="evyemegiModel.FK_order_menu" FromRole="menu" ToRole="order" />
         </EntityType>
         <EntityType Name="menu_detail">
           <Key>
@@ -511,8 +647,8 @@
           <Property Name="menu_detail_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="food_id" Type="Int32" Nullable="false" />
           <Property Name="menu_id" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="foods" Relationship="Self.FK_menu_detail_foods1" FromRole="menu_detail" ToRole="foods" />
-          <NavigationProperty Name="menu" Relationship="Self.FK_menu_detail_menu" FromRole="menu_detail" ToRole="menu" />
+          <NavigationProperty Name="foods" Relationship="evyemegiModel.FK_menu_detail_foods1" FromRole="menu_detail" ToRole="foods" />
+          <NavigationProperty Name="menu" Relationship="evyemegiModel.FK_menu_detail_menu" FromRole="menu_detail" ToRole="menu" />
         </EntityType>
         <EntityType Name="order">
           <Key>
@@ -524,9 +660,9 @@
           <Property Name="order_create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="order_status" Type="Byte" Nullable="false" />
           <Property Name="menu_id" Type="Int64" Nullable="false" />
-          <Property Name="order_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="menu" Relationship="Self.FK_order_menu" FromRole="order" ToRole="menu" />
-          <NavigationProperty Name="user" Relationship="Self.FK_order_user" FromRole="order" ToRole="user" />
+          <Property Name="order_price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="menu" Relationship="evyemegiModel.FK_order_menu" FromRole="order" ToRole="menu" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_order_user" FromRole="order" ToRole="user" />
         </EntityType>
         <EntityType Name="street">
           <Key>
@@ -536,19 +672,19 @@
           <Property Name="city_id" Type="Int16" Nullable="false" />
           <Property Name="town_id" Type="Int16" Nullable="false" />
           <Property Name="district_id" Type="Int16" Nullable="false" />
-          <Property Name="street_name_uppercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="street_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="street_name_lowercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="city" Relationship="Self.FK_street_city" FromRole="street" ToRole="city" />
-          <NavigationProperty Name="district" Relationship="Self.FK_street_district" FromRole="street" ToRole="district" />
-          <NavigationProperty Name="town" Relationship="Self.FK_street_town" FromRole="street" ToRole="town" />
-          <NavigationProperty Name="user" Relationship="Self.FK_user_street" FromRole="street" ToRole="user" />
+          <Property Name="street_name_uppercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="street_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="street_name_lowercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="city" Relationship="evyemegiModel.FK_street_city" FromRole="street" ToRole="city" />
+          <NavigationProperty Name="district" Relationship="evyemegiModel.FK_street_district" FromRole="street" ToRole="district" />
+          <NavigationProperty Name="town" Relationship="evyemegiModel.FK_street_town" FromRole="street" ToRole="town" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_user_street" FromRole="street" ToRole="user" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -560,13 +696,13 @@
           </Key>
           <Property Name="town_id" Type="Int16" Nullable="false" />
           <Property Name="city_id" Type="Int16" Nullable="false" />
-          <Property Name="town_name_uppercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="town_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="town_name_lowercase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="city" Relationship="Self.FK_town_city" FromRole="town" ToRole="city" />
-          <NavigationProperty Name="district" Relationship="Self.FK_district_town" FromRole="town" ToRole="district" />
-          <NavigationProperty Name="street" Relationship="Self.FK_street_town" FromRole="town" ToRole="street" />
-          <NavigationProperty Name="user" Relationship="Self.FK_user_town" FromRole="town" ToRole="user" />
+          <Property Name="town_name_uppercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="town_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="town_name_lowercase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="city" Relationship="evyemegiModel.FK_town_city" FromRole="town" ToRole="city" />
+          <NavigationProperty Name="district" Relationship="evyemegiModel.FK_district_town" FromRole="town" ToRole="district" />
+          <NavigationProperty Name="street" Relationship="evyemegiModel.FK_street_town" FromRole="town" ToRole="street" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_user_town" FromRole="town" ToRole="user" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -574,15 +710,13 @@
           </Key>
           <Property Name="user_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_nickname" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="user_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="user_surname" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="city_id" Type="Int16" Nullable="false" />
           <Property Name="town_id" Type="Int16" Nullable="false" />
           <Property Name="district_id" Type="Int16" Nullable="false" />
           <Property Name="street_id" Type="Int32" Nullable="false" />
-          <Property Name="user_email" Type="String" MaxLength="160" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="user_password_hash" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="user_password_salt" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="user_email" Type="String" Nullable="false" MaxLength="160" FixedLength="false" Unicode="false" />
+          <Property Name="user_password_salt" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
           <Property Name="user_active" Type="Boolean" Nullable="false" />
           <Property Name="user_status" Type="Boolean" />
           <Property Name="user_create_date" Type="DateTime" Nullable="false" Precision="3" />
@@ -591,16 +725,16 @@
           <Property Name="user_cep" Type="Int64" Nullable="false" />
           <Property Name="user_score" Type="Double" />
           <Property Name="admin_status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="city" Relationship="Self.FK_user_city" FromRole="user" ToRole="city" />
-          <NavigationProperty Name="district" Relationship="Self.FK_user_district" FromRole="user" ToRole="district" />
-          <NavigationProperty Name="menu" Relationship="Self.FK_menu_user" FromRole="user" ToRole="menu" />
-          <NavigationProperty Name="order" Relationship="Self.FK_order_user" FromRole="user" ToRole="order" />
-          <NavigationProperty Name="street" Relationship="Self.FK_user_street" FromRole="user" ToRole="street" />
-          <NavigationProperty Name="town" Relationship="Self.FK_user_town" FromRole="user" ToRole="town" />
+          <NavigationProperty Name="city" Relationship="evyemegiModel.FK_user_city" FromRole="user" ToRole="city" />
+          <NavigationProperty Name="district" Relationship="evyemegiModel.FK_user_district" FromRole="user" ToRole="district" />
+          <NavigationProperty Name="menu" Relationship="evyemegiModel.FK_menu_user" FromRole="user" ToRole="menu" />
+          <NavigationProperty Name="order" Relationship="evyemegiModel.FK_order_user" FromRole="user" ToRole="order" />
+          <NavigationProperty Name="street" Relationship="evyemegiModel.FK_user_street" FromRole="user" ToRole="street" />
+          <NavigationProperty Name="town" Relationship="evyemegiModel.FK_user_town" FromRole="user" ToRole="town" />
         </EntityType>
         <Association Name="FK_district_city">
-          <End Role="city" Type="Self.city" Multiplicity="1" />
-          <End Role="district" Type="Self.district" Multiplicity="*" />
+          <End Type="evyemegiModel.city" Role="city" Multiplicity="1" />
+          <End Type="evyemegiModel.district" Role="district" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="city">
               <PropertyRef Name="city_id" />
@@ -611,8 +745,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_street_city">
-          <End Role="city" Type="Self.city" Multiplicity="1" />
-          <End Role="street" Type="Self.street" Multiplicity="*" />
+          <End Type="evyemegiModel.city" Role="city" Multiplicity="1" />
+          <End Type="evyemegiModel.street" Role="street" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="city">
               <PropertyRef Name="city_id" />
@@ -623,8 +757,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_town_city">
-          <End Role="city" Type="Self.city" Multiplicity="1" />
-          <End Role="town" Type="Self.town" Multiplicity="*" />
+          <End Type="evyemegiModel.city" Role="city" Multiplicity="1" />
+          <End Type="evyemegiModel.town" Role="town" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="city">
               <PropertyRef Name="city_id" />
@@ -635,8 +769,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_city">
-          <End Role="city" Type="Self.city" Multiplicity="1" />
-          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Type="evyemegiModel.city" Role="city" Multiplicity="1" />
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="city">
               <PropertyRef Name="city_id" />
@@ -647,8 +781,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_district_town">
-          <End Role="town" Type="Self.town" Multiplicity="1" />
-          <End Role="district" Type="Self.district" Multiplicity="*" />
+          <End Type="evyemegiModel.town" Role="town" Multiplicity="1" />
+          <End Type="evyemegiModel.district" Role="district" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="town">
               <PropertyRef Name="town_id" />
@@ -659,8 +793,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_street_district">
-          <End Role="district" Type="Self.district" Multiplicity="1" />
-          <End Role="street" Type="Self.street" Multiplicity="*" />
+          <End Type="evyemegiModel.district" Role="district" Multiplicity="1" />
+          <End Type="evyemegiModel.street" Role="street" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="district">
               <PropertyRef Name="district_id" />
@@ -671,8 +805,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_district">
-          <End Role="district" Type="Self.district" Multiplicity="1" />
-          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Type="evyemegiModel.district" Role="district" Multiplicity="1" />
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="district">
               <PropertyRef Name="district_id" />
@@ -683,8 +817,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_foods_food_catagory1">
-          <End Role="food_catagory" Type="Self.food_catagory" Multiplicity="1" />
-          <End Role="foods" Type="Self.foods" Multiplicity="*" />
+          <End Type="evyemegiModel.food_catagory" Role="food_catagory" Multiplicity="1" />
+          <End Type="evyemegiModel.foods" Role="foods" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="food_catagory">
               <PropertyRef Name="food_catagory_id" />
@@ -695,8 +829,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_menu_detail_foods1">
-          <End Role="foods" Type="Self.foods" Multiplicity="1" />
-          <End Role="menu_detail" Type="Self.menu_detail" Multiplicity="*" />
+          <End Type="evyemegiModel.foods" Role="foods" Multiplicity="1" />
+          <End Type="evyemegiModel.menu_detail" Role="menu_detail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="foods">
               <PropertyRef Name="food_id" />
@@ -707,8 +841,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_menu_detail_menu">
-          <End Role="menu" Type="Self.menu" Multiplicity="1" />
-          <End Role="menu_detail" Type="Self.menu_detail" Multiplicity="*" />
+          <End Type="evyemegiModel.menu" Role="menu" Multiplicity="1" />
+          <End Type="evyemegiModel.menu_detail" Role="menu_detail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="menu">
               <PropertyRef Name="menu_id" />
@@ -719,8 +853,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_menu_user">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
-          <End Role="menu" Type="Self.menu" Multiplicity="*" />
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="1" />
+          <End Type="evyemegiModel.menu" Role="menu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
               <PropertyRef Name="user_id" />
@@ -731,8 +865,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_order_menu">
-          <End Role="menu" Type="Self.menu" Multiplicity="1" />
-          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <End Type="evyemegiModel.menu" Role="menu" Multiplicity="1" />
+          <End Type="evyemegiModel.order" Role="order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="menu">
               <PropertyRef Name="menu_id" />
@@ -743,8 +877,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_order_user">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
-          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="1" />
+          <End Type="evyemegiModel.order" Role="order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user">
               <PropertyRef Name="user_id" />
@@ -755,8 +889,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_street_town">
-          <End Role="town" Type="Self.town" Multiplicity="1" />
-          <End Role="street" Type="Self.street" Multiplicity="*" />
+          <End Type="evyemegiModel.town" Role="town" Multiplicity="1" />
+          <End Type="evyemegiModel.street" Role="street" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="town">
               <PropertyRef Name="town_id" />
@@ -767,8 +901,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_street">
-          <End Role="street" Type="Self.street" Multiplicity="1" />
-          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Type="evyemegiModel.street" Role="street" Multiplicity="1" />
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="street">
               <PropertyRef Name="street_id" />
@@ -779,8 +913,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_town">
-          <End Role="town" Type="Self.town" Multiplicity="1" />
-          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Type="evyemegiModel.town" Role="town" Multiplicity="1" />
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="town">
               <PropertyRef Name="town_id" />
@@ -790,84 +924,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="evyemegiEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="admin" EntityType="Self.admin" />
-          <EntitySet Name="city" EntityType="Self.city" />
-          <EntitySet Name="district" EntityType="Self.district" />
-          <EntitySet Name="food_catagory" EntityType="Self.food_catagory" />
-          <EntitySet Name="foods" EntityType="Self.foods" />
-          <EntitySet Name="menu" EntityType="Self.menu" />
-          <EntitySet Name="menu_detail" EntityType="Self.menu_detail" />
-          <EntitySet Name="order" EntityType="Self.order" />
-          <EntitySet Name="street" EntityType="Self.street" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="town" EntityType="Self.town" />
-          <EntitySet Name="user" EntityType="Self.user" />
-          <AssociationSet Name="FK_district_city" Association="Self.FK_district_city">
-            <End Role="city" EntitySet="city" />
-            <End Role="district" EntitySet="district" />
-          </AssociationSet>
-          <AssociationSet Name="FK_street_city" Association="Self.FK_street_city">
-            <End Role="city" EntitySet="city" />
-            <End Role="street" EntitySet="street" />
-          </AssociationSet>
-          <AssociationSet Name="FK_town_city" Association="Self.FK_town_city">
-            <End Role="city" EntitySet="city" />
-            <End Role="town" EntitySet="town" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_city" Association="Self.FK_user_city">
-            <End Role="city" EntitySet="city" />
-            <End Role="user" EntitySet="user" />
-          </AssociationSet>
-          <AssociationSet Name="FK_district_town" Association="Self.FK_district_town">
-            <End Role="town" EntitySet="town" />
-            <End Role="district" EntitySet="district" />
-          </AssociationSet>
-          <AssociationSet Name="FK_street_district" Association="Self.FK_street_district">
-            <End Role="district" EntitySet="district" />
-            <End Role="street" EntitySet="street" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_district" Association="Self.FK_user_district">
-            <End Role="district" EntitySet="district" />
-            <End Role="user" EntitySet="user" />
-          </AssociationSet>
-          <AssociationSet Name="FK_foods_food_catagory1" Association="Self.FK_foods_food_catagory1">
-            <End Role="food_catagory" EntitySet="food_catagory" />
-            <End Role="foods" EntitySet="foods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_menu_detail_foods1" Association="Self.FK_menu_detail_foods1">
-            <End Role="foods" EntitySet="foods" />
-            <End Role="menu_detail" EntitySet="menu_detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_menu_detail_menu" Association="Self.FK_menu_detail_menu">
-            <End Role="menu" EntitySet="menu" />
-            <End Role="menu_detail" EntitySet="menu_detail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_menu_user" Association="Self.FK_menu_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="menu" EntitySet="menu" />
-          </AssociationSet>
-          <AssociationSet Name="FK_order_menu" Association="Self.FK_order_menu">
-            <End Role="menu" EntitySet="menu" />
-            <End Role="order" EntitySet="order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_order_user" Association="Self.FK_order_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="order" EntitySet="order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_street_town" Association="Self.FK_street_town">
-            <End Role="town" EntitySet="town" />
-            <End Role="street" EntitySet="street" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_street" Association="Self.FK_user_street">
-            <End Role="street" EntitySet="street" />
-            <End Role="user" EntitySet="user" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_town" Association="Self.FK_user_town">
-            <End Role="town" EntitySet="town" />
-            <End Role="user" EntitySet="user" />
-          </AssociationSet>
-        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -877,158 +944,180 @@
           <EntitySetMapping Name="admin">
             <EntityTypeMapping TypeName="evyemegiModel.admin">
               <MappingFragment StoreEntitySet="admin">
-                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
-                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
-                <ScalarProperty Name="admin_surname" ColumnName="admin_surname" />
-                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
-                <ScalarProperty Name="admin_password_hash" ColumnName="admin_password_hash" />
-                <ScalarProperty Name="admin_password_salt" ColumnName="admin_password_salt" />
-                <ScalarProperty Name="admin_create_date" ColumnName="admin_create_date" />
-                <ScalarProperty Name="admin_ip" ColumnName="admin_ip" />
-                <ScalarProperty Name="admin_update_date" ColumnName="admin_update_date" />
                 <ScalarProperty Name="admin_tel" ColumnName="admin_tel" />
+                <ScalarProperty Name="admin_update_date" ColumnName="admin_update_date" />
+                <ScalarProperty Name="admin_ip" ColumnName="admin_ip" />
+                <ScalarProperty Name="admin_create_date" ColumnName="admin_create_date" />
+                <ScalarProperty Name="admin_password_salt" ColumnName="admin_password_salt" />
+                <ScalarProperty Name="admin_password_hash" ColumnName="admin_password_hash" />
+                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+                <ScalarProperty Name="admin_surname" ColumnName="admin_surname" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="city">
             <EntityTypeMapping TypeName="evyemegiModel.city">
               <MappingFragment StoreEntitySet="city">
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-                <ScalarProperty Name="license_plate" ColumnName="license_plate" />
-                <ScalarProperty Name="city_name_uppercase" ColumnName="city_name_uppercase" />
-                <ScalarProperty Name="city_name" ColumnName="city_name" />
                 <ScalarProperty Name="city_name_lowercase" ColumnName="city_name_lowercase" />
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
+                <ScalarProperty Name="city_name_uppercase" ColumnName="city_name_uppercase" />
+                <ScalarProperty Name="license_plate" ColumnName="license_plate" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="district">
             <EntityTypeMapping TypeName="evyemegiModel.district">
               <MappingFragment StoreEntitySet="district">
-                <ScalarProperty Name="district_id" ColumnName="district_id" />
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-                <ScalarProperty Name="town_id" ColumnName="town_id" />
-                <ScalarProperty Name="district_name_uppercase" ColumnName="district_name_uppercase" />
-                <ScalarProperty Name="district_name" ColumnName="district_name" />
-                <ScalarProperty Name="district_name_lowercase" ColumnName="district_name_lowercase" />
                 <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="district_name_lowercase" ColumnName="district_name_lowercase" />
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
+                <ScalarProperty Name="district_name_uppercase" ColumnName="district_name_uppercase" />
+                <ScalarProperty Name="town_id" ColumnName="town_id" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="food_catagory">
             <EntityTypeMapping TypeName="evyemegiModel.food_catagory">
               <MappingFragment StoreEntitySet="food_catagory">
-                <ScalarProperty Name="food_catagory_id" ColumnName="food_catagory_id" />
                 <ScalarProperty Name="food_catagory_name" ColumnName="food_catagory_name" />
+                <ScalarProperty Name="food_catagory_id" ColumnName="food_catagory_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="foods">
             <EntityTypeMapping TypeName="evyemegiModel.foods">
               <MappingFragment StoreEntitySet="foods">
-                <ScalarProperty Name="food_id" ColumnName="food_id" />
-                <ScalarProperty Name="food_name" ColumnName="food_name" />
-                <ScalarProperty Name="food_img_src" ColumnName="food_img_src" />
-                <ScalarProperty Name="food_catagory_id" ColumnName="food_catagory_id" />
                 <ScalarProperty Name="food_status" ColumnName="food_status" />
+                <ScalarProperty Name="food_catagory_id" ColumnName="food_catagory_id" />
+                <ScalarProperty Name="food_img_src" ColumnName="food_img_src" />
+                <ScalarProperty Name="food_name" ColumnName="food_name" />
+                <ScalarProperty Name="food_id" ColumnName="food_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="menu">
             <EntityTypeMapping TypeName="evyemegiModel.menu">
               <MappingFragment StoreEntitySet="menu">
-                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
-                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="menu_price" ColumnName="menu_price" />
-                <ScalarProperty Name="menu_valid_date" ColumnName="menu_valid_date" />
-                <ScalarProperty Name="menu_create_date" ColumnName="menu_create_date" />
-                <ScalarProperty Name="menu_delivery_date" ColumnName="menu_delivery_date" />
                 <ScalarProperty Name="menu_score" ColumnName="menu_score" />
+                <ScalarProperty Name="menu_delivery_date" ColumnName="menu_delivery_date" />
+                <ScalarProperty Name="menu_create_date" ColumnName="menu_create_date" />
+                <ScalarProperty Name="menu_valid_date" ColumnName="menu_valid_date" />
+                <ScalarProperty Name="menu_price" ColumnName="menu_price" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="menu_detail">
             <EntityTypeMapping TypeName="evyemegiModel.menu_detail">
               <MappingFragment StoreEntitySet="menu_detail">
-                <ScalarProperty Name="menu_detail_id" ColumnName="menu_detail_id" />
-                <ScalarProperty Name="food_id" ColumnName="food_id" />
                 <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="food_id" ColumnName="food_id" />
+                <ScalarProperty Name="menu_detail_id" ColumnName="menu_detail_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="order">
             <EntityTypeMapping TypeName="evyemegiModel.order">
               <MappingFragment StoreEntitySet="order">
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="portion" ColumnName="portion" />
-                <ScalarProperty Name="order_create_date" ColumnName="order_create_date" />
-                <ScalarProperty Name="order_status" ColumnName="order_status" />
-                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
                 <ScalarProperty Name="order_price" ColumnName="order_price" />
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+                <ScalarProperty Name="order_create_date" ColumnName="order_create_date" />
+                <ScalarProperty Name="portion" ColumnName="portion" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="street">
             <EntityTypeMapping TypeName="evyemegiModel.street">
               <MappingFragment StoreEntitySet="street">
-                <ScalarProperty Name="street_id" ColumnName="street_id" />
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-                <ScalarProperty Name="town_id" ColumnName="town_id" />
-                <ScalarProperty Name="district_id" ColumnName="district_id" />
-                <ScalarProperty Name="street_name_uppercase" ColumnName="street_name_uppercase" />
-                <ScalarProperty Name="street_name" ColumnName="street_name" />
                 <ScalarProperty Name="street_name_lowercase" ColumnName="street_name_lowercase" />
+                <ScalarProperty Name="street_name" ColumnName="street_name" />
+                <ScalarProperty Name="street_name_uppercase" ColumnName="street_name_uppercase" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="town_id" ColumnName="town_id" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="street_id" ColumnName="street_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="evyemegiModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="town">
             <EntityTypeMapping TypeName="evyemegiModel.town">
               <MappingFragment StoreEntitySet="town">
-                <ScalarProperty Name="town_id" ColumnName="town_id" />
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-                <ScalarProperty Name="town_name_uppercase" ColumnName="town_name_uppercase" />
-                <ScalarProperty Name="town_name" ColumnName="town_name" />
                 <ScalarProperty Name="town_name_lowercase" ColumnName="town_name_lowercase" />
+                <ScalarProperty Name="town_name" ColumnName="town_name" />
+                <ScalarProperty Name="town_name_uppercase" ColumnName="town_name_uppercase" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="town_id" ColumnName="town_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="evyemegiModel.user">
               <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="user_nickname" ColumnName="user_nickname" />
-                <ScalarProperty Name="user_name" ColumnName="user_name" />
-                <ScalarProperty Name="user_surname" ColumnName="user_surname" />
-                <ScalarProperty Name="city_id" ColumnName="city_id" />
-                <ScalarProperty Name="town_id" ColumnName="town_id" />
-                <ScalarProperty Name="district_id" ColumnName="district_id" />
-                <ScalarProperty Name="street_id" ColumnName="street_id" />
-                <ScalarProperty Name="user_email" ColumnName="user_email" />
-                <ScalarProperty Name="user_password_hash" ColumnName="user_password_hash" />
-                <ScalarProperty Name="user_password_salt" ColumnName="user_password_salt" />
-                <ScalarProperty Name="user_active" ColumnName="user_active" />
-                <ScalarProperty Name="user_status" ColumnName="user_status" />
-                <ScalarProperty Name="user_create_date" ColumnName="user_create_date" />
-                <ScalarProperty Name="user_create_ip" ColumnName="user_create_ip" />
-                <ScalarProperty Name="user_update_date" ColumnName="user_update_date" />
-                <ScalarProperty Name="user_cep" ColumnName="user_cep" />
-                <ScalarProperty Name="user_score" ColumnName="user_score" />
                 <ScalarProperty Name="admin_status" ColumnName="admin_status" />
+                <ScalarProperty Name="user_score" ColumnName="user_score" />
+                <ScalarProperty Name="user_cep" ColumnName="user_cep" />
+                <ScalarProperty Name="user_update_date" ColumnName="user_update_date" />
+                <ScalarProperty Name="user_create_ip" ColumnName="user_create_ip" />
+                <ScalarProperty Name="user_create_date" ColumnName="user_create_date" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="user_active" ColumnName="user_active" />
+                <ScalarProperty Name="user_password_salt" ColumnName="user_password_salt" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="street_id" ColumnName="street_id" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="town_id" ColumnName="town_id" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_nickname" ColumnName="user_nickname" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="evyemegiModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="evyemegiModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="evyemegiModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="evyemegiModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="evyemegiModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="evyemegiModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="evyemegiModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="evyemegiModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="evyemegiModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -197,8 +197,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GirisController.cs" />
     <Compile Include="Controllers\homeController.cs" />
-    <Compile Include="Controllers\Kayıtol.cs" />
-    <Compile Include="Controllers\uyeController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,13 +217,22 @@
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Giris\LoginState.cs" />
+    <Compile Include="Models\Kalitim.cs" />
     <Compile Include="Models\menu.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\menu_detail.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Musteri\Kayit.cs" />
+    <Compile Include="Models\Musteri\KayitModel.cs" />
     <Compile Include="Models\order.cs">
+      <DependentUpon>userDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>userDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\street.cs">
@@ -286,6 +293,8 @@
     <Folder Include="Content\fonts\" />
     <Folder Include="Content\images\" />
     <Folder Include="Content\js\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\Ogrenci\" />
     <Folder Include="Views\uye\" />
   </ItemGroup>
   <ItemGroup>

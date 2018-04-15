@@ -24,13 +24,11 @@ namespace YemekSatış.Models
         public long user_id { get; set; }
         public string user_nickname { get; set; }
         public string user_name { get; set; }
-        public string user_surname { get; set; }
         public short city_id { get; set; }
         public short town_id { get; set; }
         public short district_id { get; set; }
         public int street_id { get; set; }
         public string user_email { get; set; }
-        public string user_password_hash { get; set; }
         public string user_password_salt { get; set; }
         public bool user_active { get; set; }
         public Nullable<bool> user_status { get; set; }

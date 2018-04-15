@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using YemekSatış.Models.Musteri;
 namespace YemekSatış.Controllers
 {
     public class GirisController : Controller
@@ -14,6 +14,14 @@ namespace YemekSatış.Controllers
             return View();
         }
         [HttpPost]
+        public ActionResult KayitOl(KayitModel postData)
+        {
+            bool result = new Models.Musteri.Kayit().KayitOl(postData) ;
+
+
+            return RedirectToAction("GirisYap1", "Giris");
+        }
+        [HttpPost]
         public ActionResult GirisYap1(string Username, string Password)
         {
             if(new Models.Giris.LoginState().IsLoginSucces(Username, Password))
@@ -21,6 +29,11 @@ namespace YemekSatış.Controllers
                 return RedirectToAction("Index", "home");
 
             }
+            return RedirectToAction("GirisYap1", "Giris");
+        }
+        public ActionResult LogOut()
+        {
+            Session.Clear();
             return RedirectToAction("GirisYap1", "Giris");
         }
     }

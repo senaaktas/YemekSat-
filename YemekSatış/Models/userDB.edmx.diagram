@@ -5,34 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5b3bdd2a1ebc47d4b63d04ee9134d7c2" Name="Diagram1">
-        <EntityTypeShape EntityType="evyemegiModel.admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.city" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.district" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.food_catagory" Width="1.5" PointX="9.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.foods" Width="1.5" PointX="12" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.menu" Width="1.5" PointX="12" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.menu_detail" Width="1.5" PointX="14.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.order" Width="1.5" PointX="17.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.street" Width="1.5" PointX="7.5" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.town" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="evyemegiModel.user" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
-        <AssociationConnector Association="evyemegiModel.FK_district_city" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_street_city" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_town_city" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_user_city" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_district_town" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_street_district" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_user_district" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_foods_food_catagory1" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_menu_detail_foods1" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_menu_detail_menu" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_menu_user" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_order_menu" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_order_user" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_street_town" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_user_street" ManuallyRouted="false" />
-        <AssociationConnector Association="evyemegiModel.FK_user_town" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="evyemegiModel.admin" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="evyemegiModel.city" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="evyemegiModel.district" Width="1.5" PointX="5.25" PointY="6.125" />
+        <EntityTypeShape EntityType="evyemegiModel.food_catagory" Width="1.5" PointX="9.75" PointY="1.875" />
+        <EntityTypeShape EntityType="evyemegiModel.foods" Width="1.5" PointX="12" PointY="1.5" />
+        <EntityTypeShape EntityType="evyemegiModel.menu" Width="1.5" PointX="12" PointY="6.125" />
+        <EntityTypeShape EntityType="evyemegiModel.menu_detail" Width="1.5" PointX="14.25" PointY="6.75" />
+        <EntityTypeShape EntityType="evyemegiModel.order" Width="1.5" PointX="17.25" PointY="6.375" />
+        <EntityTypeShape EntityType="evyemegiModel.street" Width="1.5" PointX="7.5" PointY="6.125" />
+        <EntityTypeShape EntityType="evyemegiModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="evyemegiModel.town" Width="1.5" PointX="3" PointY="8.25" />
+        <EntityTypeShape EntityType="evyemegiModel.user" Width="1.5" PointX="9.75" PointY="5" />
+        <AssociationConnector Association="evyemegiModel.FK_district_city" />
+        <AssociationConnector Association="evyemegiModel.FK_street_city" />
+        <AssociationConnector Association="evyemegiModel.FK_town_city" />
+        <AssociationConnector Association="evyemegiModel.FK_user_city" />
+        <AssociationConnector Association="evyemegiModel.FK_district_town" />
+        <AssociationConnector Association="evyemegiModel.FK_street_district" />
+        <AssociationConnector Association="evyemegiModel.FK_user_district" />
+        <AssociationConnector Association="evyemegiModel.FK_foods_food_catagory1" />
+        <AssociationConnector Association="evyemegiModel.FK_menu_detail_foods1" />
+        <AssociationConnector Association="evyemegiModel.FK_menu_detail_menu" />
+        <AssociationConnector Association="evyemegiModel.FK_menu_user" />
+        <AssociationConnector Association="evyemegiModel.FK_order_menu" />
+        <AssociationConnector Association="evyemegiModel.FK_order_user" />
+        <AssociationConnector Association="evyemegiModel.FK_street_town" />
+        <AssociationConnector Association="evyemegiModel.FK_user_street" />
+        <AssociationConnector Association="evyemegiModel.FK_user_town" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
