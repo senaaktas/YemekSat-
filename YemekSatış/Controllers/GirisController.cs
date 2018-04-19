@@ -18,7 +18,6 @@ namespace YemekSatış.Controllers
         {
             bool result = new Models.Musteri.Kayit().KayitOl(postData) ;
 
-
             return RedirectToAction("GirisYap1", "Giris");
         }
         [HttpPost]
@@ -26,7 +25,7 @@ namespace YemekSatış.Controllers
         {
             if(new Models.Giris.LoginState().IsLoginSucces(Username, Password))
             {
-                return RedirectToAction("Index", "home");
+                return RedirectToAction("Index", "Panel");
 
             }
             return RedirectToAction("GirisYap1", "Giris");
@@ -35,6 +34,10 @@ namespace YemekSatış.Controllers
         {
             Session.Clear();
             return RedirectToAction("GirisYap1", "Giris");
+        }
+        public ActionResult denem()
+        {
+            return View();
         }
     }
 }
