@@ -264,6 +264,13 @@
     <Compile Include="Models\district.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\CategoriesAddDTO.cs" />
+    <Compile Include="Models\DTO\CategoriesEditDTO.cs" />
+    <Compile Include="Models\DTO\CategoriesListDTO.cs" />
+    <Compile Include="Models\DTO\ProfileListDTO.cs" />
+    <Compile Include="Models\DTO\SubCategoriesAddDTO.cs" />
+    <Compile Include="Models\DTO\SubCategoriesEditDTO.cs" />
+    <Compile Include="Models\DTO\SubCategoriesListDTO.cs" />
     <Compile Include="Models\foods.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
@@ -335,7 +342,6 @@
       <DependentUpon>userDB.edmx</DependentUpon>
     </Content>
     <Content Include="Views\Giris\GirisYap1.cshtml" />
-    <Content Include="Views\Giris\denem.cshtml" />
     <Content Include="Views\Shared\_PanelLayout.cshtml" />
     <Content Include="Views\Panel\Index.cshtml" />
     <Content Include="PanelStyle\bootstrap\CHANGELOG.md" />
@@ -485,6 +491,8 @@
     <Content Include="PanelStyle\less\variables.less" />
     <Content Include="PanelStyle\less\widgets.less" />
     <Content Include="Views\Panel\Profile.cshtml" />
+    <Content Include="Views\Panel\Categories.cshtml" />
+    <Content Include="Views\Panel\SubCategories.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -35,9 +35,6 @@ namespace YemekSatış.Controllers
             Session.Clear();
             return RedirectToAction("GirisYap1", "Giris");
         }
-        public ActionResult denem()
-        {
-            return View();
-        }
+        
     }
 }

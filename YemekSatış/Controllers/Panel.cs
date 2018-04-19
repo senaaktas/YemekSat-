@@ -18,5 +18,13 @@ namespace YemekSatış.Controllers
             return View();
 
         }
+        public ActionResult Categories()
+        {
+            return View();
+        }
+        public ActionResult SubCategories()
+        {
+            return View();
+        }
     }
 }
