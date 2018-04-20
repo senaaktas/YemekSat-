@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<YemekSatış.Models.DTO.CategoriesListDTO>
 @{
     ViewBag.Title = "Categories";
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
@@ -19,13 +19,17 @@
 <div class="row">
     <div class="col-md-12 col-xs-12">
         <div class="white-box">
+            <div align="right">
+                <a id="btnYeniKayit">Yeni Kayıt</a>
+            </div>
             <form class="form-horizontal form-material" id="frmCategories">
+                <input type="hidden" id="hdn_food_catagory_id" name="food_catagory_id" />
                 <div class="form-group">
                     <label class="col-md-12">Kategori Adı</label>
                     <div class="col-md-12">
-                        <input type="text" name="user_name" placeholder="Kategori Adı" class="form-control form-control-line">
+                        <input type="text" id="txt_food_catagory_name" name="food_catagory_name" placeholder="Kategori Adı" class="form-control form-control-line">
                     </div>
-                </div>               
+                </div>
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="submit" class="btn btn-success" value="KAYDET" />
@@ -35,4 +39,40 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="white-box">
+            <table id="tblCategoriesList" class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr class="text-center">
+                        <th class="text-center">#</th>
+                        <th class="text-center">KATEGORİ ADI </th>
+                        <th class="text-center">İŞLEMLER </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    @if (Model != null)
+                    {
+                        int sayac = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr data-id="@item.food_catagory_id">
+                                <td class="text-right bold">@(sayac++)</td>
+                                <td> @item.food_catagory_name </td>                                
+                                <td class="text-center">
+                                    <a data-id="@item.food_catagory_id" id="KategoriDuzenle" href="javascript:;" title="Düzelt">
+                                        <i class="fa fa-edit"></i>
+                                    </a> &nbsp;&nbsp;&nbsp;
+                                    <a data-id="@item.food_catagory_id" id="KategoriSil" href="javascript:;" title="Sil">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/scripts/Categories.js"></script>

@@ -30,10 +30,29 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        function profilBilgileri() {
+            $.ajax({
+                url: '/Panel/ProfilBilgileriYukle',
+                dataType: "json",
+                type: "GET",
+                success: function (data) {
+                    $('#txt_user_name').val(data.user_name);
+                    $('#txt_user_email').val(data.user_email);
+                    $('#txt_user_password_salt').val(data.user_password_salt);
+                    $('#sl_city_id').val(data.city_id);
+                    $('#txt_user_cep').val(data.user_cep);
+                }
+            });
+        }
+        profilBilgileri();
+    </script>
 </head>
 <body class="fix-header">
 
-    <div id="wrapper">      
+    <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header">
                 <div class="top-left-part">
@@ -49,7 +68,7 @@
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        
+
                     </li>
                     <li>
                         <a class="profile-pic" href="#"> <b class="hidden-xs">ÇIKIŞ</b></a>
@@ -105,7 +124,7 @@
         <!-- ============================================================== -->
         <div id="page-wrapper">
             <div class="container-fluid">
-                @RenderBody()               
+                @RenderBody()
             </div>
             <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by wrappixel.com </footer>
         </div>
@@ -124,6 +143,6 @@
     <script src="../PanelStyle/js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../PanelStyle/js/custom.min.js"></script>
-   
+
 </body>
 </html>

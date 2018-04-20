@@ -8,60 +8,59 @@
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <h4 class="page-title">KULLANICI PROFİLİ</h4>
     </div>
-    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">       
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-           
+
             <li class="active">Profilim</li>
         </ol>
     </div>
 </div>
 
-<div class="row">    
+<div class="row">
     <div class="col-md-12 col-xs-12">
         <div class="white-box">
             <form class="form-horizontal form-material" id="frmProfile">
                 <div class="form-group">
                     <label class="col-md-12">Adı Soyadı</label>
                     <div class="col-md-12">
-                        <input type="text" name="user_name" placeholder="Adı Soyadı" class="form-control form-control-line">
+                        <input type="text" id="txt_user_name" name="user_name" placeholder="Adı Soyadı" class="form-control form-control-line">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="example-email" class="col-md-12">Email</label>
                     <div class="col-md-12">
-                        <input type="email"  placeholder="Email" class="form-control form-control-line" name="user_email" id="example-email">
+                        <input type="email" placeholder="Email" class="form-control form-control-line" name="user_email" id="txt_user_email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-12">Password</label>
                     <div class="col-md-12">
-                        <input type="password" value="password" name="user_password_salt" class="form-control form-control-line">
+                        <input type="password" value="password" id="txt_user_password_salt" name="user_password_salt" class="form-control form-control-line">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12">Şehir</label>
                     <div class="col-sm-12">
-                        <select class="form-control form-control-line" name="city_id">
-                            <option>London</option>
-                            <option>India</option>
-                            <option>Usa</option>
-                            <option>Canada</option>
-                            <option>Thailand</option>
+                        <select class="form-control form-control-line" id="sl_city_id" name="city_id">
+                            @foreach (var item in ViewBag.slc_City)
+                            {
+                                <option value="@item.city_id">@item.city_name</option>
+                            }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-12">Telefon</label> 
+                    <label class="col-md-12">Telefon</label>
                     <div class="col-md-12">
-                        <input type="text" placeholder="Telefon" name="user_cep" class="form-control form-control-line">
+                        <input type="text" placeholder="Telefon" id="txt_user_cep" name="user_cep" class="form-control form-control-line">
                     </div>
                 </div>
                 @*<div class="form-group">
-                    <label class="col-md-12">Message</label>
-                    <div class="col-md-12">
-                        <textarea rows="5" class="form-control form-control-line"></textarea>
-                    </div>
-                </div>*@
+                        <label class="col-md-12">Message</label>
+                        <div class="col-md-12">
+                            <textarea rows="5" class="form-control form-control-line"></textarea>
+                        </div>
+                    </div>*@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="submit" class="btn btn-success" value="KAYDET" />
@@ -71,4 +70,4 @@
         </div>
     </div>
 </div>
-
+<script src="~/scripts/Profile.js"></script>

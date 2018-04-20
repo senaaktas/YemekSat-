@@ -243,6 +243,9 @@
     <Content Include="PanelStyle\less\spinners.css" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\Categories.js" />
+    <Content Include="scripts\Profile.js" />
+    <Content Include="scripts\SubCategories.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -250,7 +253,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GirisController.cs" />
     <Compile Include="Controllers\homeController.cs" />
-    <Compile Include="Controllers\Panel.cs" />
+    <Compile Include="Controllers\PanelController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -268,6 +271,7 @@
     <Compile Include="Models\DTO\CategoriesEditDTO.cs" />
     <Compile Include="Models\DTO\CategoriesListDTO.cs" />
     <Compile Include="Models\DTO\ProfileListDTO.cs" />
+    <Compile Include="Models\DTO\SabitlerDTO.cs" />
     <Compile Include="Models\DTO\SubCategoriesAddDTO.cs" />
     <Compile Include="Models\DTO\SubCategoriesEditDTO.cs" />
     <Compile Include="Models\DTO\SubCategoriesListDTO.cs" />

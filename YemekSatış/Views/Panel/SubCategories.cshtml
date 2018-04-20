@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<YemekSatış.Models.DTO.SubCategoriesListDTO>
 @{
     ViewBag.Title = "SubCategories";
     Layout = "~/Views/Shared/_PanelLayout.cshtml";
@@ -6,7 +6,7 @@
 
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">ALT KATEGORİ</h4>
+        <h4 class="page-title">ALT KATEGORİLER</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
@@ -19,23 +19,27 @@
 <div class="row">
     <div class="col-md-12 col-xs-12">
         <div class="white-box">
-            <form class="form-horizontal form-material" id="frmSubCategories">
+            <div align="right">
+                <a id="btnYeniKayit">Yeni Kayıt</a>
+            </div>
+            <form class="form-horizontal form-material" id="frmsSubCategories">
+                <input type="hidden" id="hdn_food_id" name="food_id" />
                 <div class="form-group">
                     <label class="col-sm-12">Ana Kategori</label>
                     <div class="col-sm-12">
-                        <select class="form-control form-control-line" name="city_id">
-                            <option>London</option>
-                            <option>India</option>
-                            <option>Usa</option>
-                            <option>Canada</option>
-                            <option>Thailand</option>
+                        <select class="form-control form-control-line" id="slc_food_catagory_id" name="food_catagory_id">
+                            <option value="0">Kategori Seçin</option>
+                            @foreach (var item in ViewBag.slc_Categories)
+    {
+                        <option value="@item.food_catagory_id">@item.food_catagory_name</option>
+}
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-12">Alt Kategori</label>
+                    <label class="col-md-12">Başlık</label>
                     <div class="col-md-12">
-                        <input type="text" name="user_name" placeholder="Alt Kategori" class="form-control form-control-line">
+                        <input type="text" id="txt_food_name" name="food_name" placeholder="Başlık" class="form-control form-control-line">
                     </div>
                 </div>
                 <div class="form-group">
@@ -47,4 +51,42 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="white-box">
+            <table id="tblSubCategoriesList" class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr class="text-center">
+                        <th class="text-center">#</th>
+                        <th class="text-center">KATEGORİ</th>
+                        <th class="text-center">BAŞLIK</th>
+                        <th class="text-center">İŞLEMLER </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    @if (Model != null)
+                    {
+                        int sayac = 1;
+                        foreach (var item in Model)
+                        {
+                    <tr data-id="@item.food_id">
+                        <td class="text-right bold">@(sayac++)</td>
+                        <td> @item.CategoryName </td>
+                        <td> @item.food_name </td>
+                        <td class="text-center">
+                            <a data-id="@item.food_id" id="AltKategoriDuzenle" href="javascript:;" title="Düzelt">
+                                <i class="fa fa-edit"></i>
+                            </a> &nbsp;&nbsp;&nbsp;
+                            <a data-id="@item.food_id" id="AltKategoriSil" href="javascript:;" title="Sil">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/scripts/SubCategories.js"></script>

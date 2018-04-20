@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using YemekSatış.Models.DTO;
 
 namespace YemekSatış.Models.Giris
 {
@@ -17,6 +18,7 @@ namespace YemekSatış.Models.Giris
             user resultUser = db.user.Where(x => x.user_email.Equals(user) && x.user_password_salt.Equals(pas)).FirstOrDefault();
                 if (resultUser != null)
             {
+                SabitlerDTO.KullaniciID = resultUser.user_id;
                 resultUser.user_create_date = DateTime.Now;
                 db.Entry(resultUser).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();

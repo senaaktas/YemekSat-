@@ -12,5 +12,6 @@ namespace YemekSatış.Models.DTO
         public string food_img_src { get; set; }
         public byte food_catagory_id { get; set; }
         public bool food_status { get; set; }
+        public string CategoryName { get; set; }
     }
 }
