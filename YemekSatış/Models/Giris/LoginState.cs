@@ -19,6 +19,7 @@ namespace YemekSatış.Models.Giris
                 if (resultUser != null)
             {
                 SabitlerDTO.KullaniciID = resultUser.user_id;
+                SabitlerDTO.KullaniciDURUM = (bool)resultUser.user_status;
                 resultUser.user_create_date = DateTime.Now;
                 db.Entry(resultUser).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();

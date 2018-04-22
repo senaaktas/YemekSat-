@@ -30,6 +30,16 @@
           <Property Name="city_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="city_name_lowercase" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriID" Type="tinyint" />
+          <Property Name="AltKategoriID" Type="int" />
+          <Property Name="Details" Type="varchar" MaxLength="100" />
+          <Property Name="userid" Type="bigint" />
+        </EntityType>
         <EntityType Name="district">
           <Key>
             <PropertyRef Name="district_id" />
@@ -48,6 +58,7 @@
           </Key>
           <Property Name="food_catagory_id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="food_catagory_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userid" Type="bigint" />
         </EntityType>
         <EntityType Name="foods">
           <Key>
@@ -58,6 +69,7 @@
           <Property Name="food_img_src" Type="varchar(max)" />
           <Property Name="food_catagory_id" Type="tinyint" Nullable="false" />
           <Property Name="food_status" Type="bit" Nullable="false" />
+          <Property Name="userid" Type="bigint" />
         </EntityType>
         <EntityType Name="menu">
           <Key>
@@ -146,6 +158,42 @@
           <Property Name="user_score" Type="float" />
           <Property Name="admin_status" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Details_food_catagory">
+          <End Role="food_catagory" Type="Self.food_catagory" Multiplicity="0..1" />
+          <End Role="Details" Type="Self.Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_catagory">
+              <PropertyRef Name="food_catagory_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Details_foods">
+          <End Role="foods" Type="Self.foods" Multiplicity="0..1" />
+          <End Role="Details" Type="Self.Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foods">
+              <PropertyRef Name="food_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="AltKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Details_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="Details" Type="Self.Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_district_city">
           <End Role="city" Type="Self.city" Multiplicity="1" />
           <End Role="district" Type="Self.district" Multiplicity="*" />
@@ -170,6 +218,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_food_catagory_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="food_catagory" Type="Self.food_catagory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="food_catagory">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_foods_food_catagory1">
           <End Role="food_catagory" Type="Self.food_catagory" Multiplicity="1" />
           <End Role="foods" Type="Self.foods" Multiplicity="*" />
@@ -179,6 +239,18 @@
             </Principal>
             <Dependent Role="foods">
               <PropertyRef Name="food_catagory_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_foods_user">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="foods" Type="Self.foods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="foods">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -372,6 +444,7 @@
         <EntityContainer Name="evyemegiModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="city" EntityType="Self.city" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Details" EntityType="Self.Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="district" EntityType="Self.district" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="food_catagory" EntityType="Self.food_catagory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="foods" EntityType="Self.foods" Schema="dbo" store:Type="Tables" />
@@ -382,6 +455,18 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="town" EntityType="Self.town" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Details_food_catagory" Association="Self.FK_Details_food_catagory">
+            <End Role="food_catagory" EntitySet="food_catagory" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Details_foods" Association="Self.FK_Details_foods">
+            <End Role="foods" EntitySet="foods" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Details_user" Association="Self.FK_Details_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
           <AssociationSet Name="FK_district_city" Association="Self.FK_district_city">
             <End Role="city" EntitySet="city" />
             <End Role="district" EntitySet="district" />
@@ -390,8 +475,16 @@
             <End Role="town" EntitySet="town" />
             <End Role="district" EntitySet="district" />
           </AssociationSet>
+          <AssociationSet Name="FK_food_catagory_user" Association="Self.FK_food_catagory_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="food_catagory" EntitySet="food_catagory" />
+          </AssociationSet>
           <AssociationSet Name="FK_foods_food_catagory1" Association="Self.FK_foods_food_catagory1">
             <End Role="food_catagory" EntitySet="food_catagory" />
+            <End Role="foods" EntitySet="foods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_foods_user" Association="Self.FK_foods_user">
+            <End Role="user" EntitySet="user" />
             <End Role="foods" EntitySet="foods" />
           </AssociationSet>
           <AssociationSet Name="FK_menu_detail_foods1" Association="Self.FK_menu_detail_foods1">
@@ -484,6 +577,7 @@
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="admin" EntityType="evyemegiModel.admin" />
           <EntitySet Name="city" EntityType="evyemegiModel.city" />
+          <EntitySet Name="Details" EntityType="evyemegiModel.Details" />
           <EntitySet Name="district" EntityType="evyemegiModel.district" />
           <EntitySet Name="food_catagory" EntityType="evyemegiModel.food_catagory" />
           <EntitySet Name="foods" EntityType="evyemegiModel.foods" />
@@ -510,6 +604,18 @@
             <End Role="city" EntitySet="city" />
             <End Role="user" EntitySet="user" />
           </AssociationSet>
+          <AssociationSet Name="FK_Details_food_catagory" Association="evyemegiModel.FK_Details_food_catagory">
+            <End Role="food_catagory" EntitySet="food_catagory" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Details_foods" Association="evyemegiModel.FK_Details_foods">
+            <End Role="foods" EntitySet="foods" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Details_user" Association="evyemegiModel.FK_Details_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
           <AssociationSet Name="FK_district_town" Association="evyemegiModel.FK_district_town">
             <End Role="town" EntitySet="town" />
             <End Role="district" EntitySet="district" />
@@ -522,8 +628,16 @@
             <End Role="district" EntitySet="district" />
             <End Role="user" EntitySet="user" />
           </AssociationSet>
+          <AssociationSet Name="FK_food_catagory_user" Association="evyemegiModel.FK_food_catagory_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="food_catagory" EntitySet="food_catagory" />
+          </AssociationSet>
           <AssociationSet Name="FK_foods_food_catagory1" Association="evyemegiModel.FK_foods_food_catagory1">
             <End Role="food_catagory" EntitySet="food_catagory" />
+            <End Role="foods" EntitySet="foods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_foods_user" Association="evyemegiModel.FK_foods_user">
+            <End Role="user" EntitySet="user" />
             <End Role="foods" EntitySet="foods" />
           </AssociationSet>
           <AssociationSet Name="FK_menu_detail_foods1" Association="evyemegiModel.FK_menu_detail_foods1">
@@ -558,7 +672,7 @@
             <End Role="town" EntitySet="town" />
             <End Role="user" EntitySet="user" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -599,6 +713,19 @@
           <NavigationProperty Name="town" Relationship="evyemegiModel.FK_town_city" FromRole="city" ToRole="town" />
           <NavigationProperty Name="user" Relationship="evyemegiModel.FK_user_city" FromRole="city" ToRole="user" />
         </EntityType>
+        <EntityType Name="Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriID" Type="Byte" />
+          <Property Name="AltKategoriID" Type="Int32" />
+          <Property Name="Details1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="Int64" />
+          <NavigationProperty Name="food_catagory" Relationship="evyemegiModel.FK_Details_food_catagory" FromRole="Details" ToRole="food_catagory" />
+          <NavigationProperty Name="foods" Relationship="evyemegiModel.FK_Details_foods" FromRole="Details" ToRole="foods" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_Details_user" FromRole="Details" ToRole="user" />
+        </EntityType>
         <EntityType Name="district">
           <Key>
             <PropertyRef Name="district_id" />
@@ -621,6 +748,9 @@
           </Key>
           <Property Name="food_catagory_id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="food_catagory_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="Int64" />
+          <NavigationProperty Name="Details" Relationship="evyemegiModel.FK_Details_food_catagory" FromRole="food_catagory" ToRole="Details" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_food_catagory_user" FromRole="food_catagory" ToRole="user" />
           <NavigationProperty Name="foods" Relationship="evyemegiModel.FK_foods_food_catagory1" FromRole="food_catagory" ToRole="foods" />
         </EntityType>
         <EntityType Name="foods">
@@ -632,7 +762,10 @@
           <Property Name="food_img_src" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="food_catagory_id" Type="Byte" Nullable="false" />
           <Property Name="food_status" Type="Boolean" Nullable="false" />
+          <Property Name="userid" Type="Int64" />
+          <NavigationProperty Name="Details" Relationship="evyemegiModel.FK_Details_foods" FromRole="foods" ToRole="Details" />
           <NavigationProperty Name="food_catagory" Relationship="evyemegiModel.FK_foods_food_catagory1" FromRole="foods" ToRole="food_catagory" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_foods_user" FromRole="foods" ToRole="user" />
           <NavigationProperty Name="menu_detail" Relationship="evyemegiModel.FK_menu_detail_foods1" FromRole="foods" ToRole="menu_detail" />
         </EntityType>
         <EntityType Name="menu">
@@ -737,7 +870,10 @@
           <Property Name="user_score" Type="Double" />
           <Property Name="admin_status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="city" Relationship="evyemegiModel.FK_user_city" FromRole="user" ToRole="city" />
+          <NavigationProperty Name="Details" Relationship="evyemegiModel.FK_Details_user" FromRole="user" ToRole="Details" />
           <NavigationProperty Name="district" Relationship="evyemegiModel.FK_user_district" FromRole="user" ToRole="district" />
+          <NavigationProperty Name="food_catagory" Relationship="evyemegiModel.FK_food_catagory_user" FromRole="user" ToRole="food_catagory" />
+          <NavigationProperty Name="foods" Relationship="evyemegiModel.FK_foods_user" FromRole="user" ToRole="foods" />
           <NavigationProperty Name="menu" Relationship="evyemegiModel.FK_menu_user" FromRole="user" ToRole="menu" />
           <NavigationProperty Name="order" Relationship="evyemegiModel.FK_order_user" FromRole="user" ToRole="order" />
           <NavigationProperty Name="street" Relationship="evyemegiModel.FK_user_street" FromRole="user" ToRole="street" />
@@ -791,6 +927,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Details_food_catagory">
+          <End Type="evyemegiModel.food_catagory" Role="food_catagory" Multiplicity="0..1" />
+          <End Type="evyemegiModel.Details" Role="Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="food_catagory">
+              <PropertyRef Name="food_catagory_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Details_foods">
+          <End Type="evyemegiModel.foods" Role="foods" Multiplicity="0..1" />
+          <End Type="evyemegiModel.Details" Role="Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foods">
+              <PropertyRef Name="food_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="AltKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Details_user">
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="evyemegiModel.Details" Role="Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_district_town">
           <End Type="evyemegiModel.town" Role="town" Multiplicity="1" />
           <End Type="evyemegiModel.district" Role="district" Multiplicity="*" />
@@ -827,6 +999,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_food_catagory_user">
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="evyemegiModel.food_catagory" Role="food_catagory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="food_catagory">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_foods_food_catagory1">
           <End Type="evyemegiModel.food_catagory" Role="food_catagory" Multiplicity="1" />
           <End Type="evyemegiModel.foods" Role="foods" Multiplicity="*" />
@@ -836,6 +1020,18 @@
             </Principal>
             <Dependent Role="foods">
               <PropertyRef Name="food_catagory_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_foods_user">
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="0..1" />
+          <End Type="evyemegiModel.foods" Role="foods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="foods">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -935,7 +1131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -992,6 +1188,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Details">
+            <EntityTypeMapping TypeName="evyemegiModel.Details">
+              <MappingFragment StoreEntitySet="Details">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="Details1" ColumnName="Details" />
+                <ScalarProperty Name="AltKategoriID" ColumnName="AltKategoriID" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="district">
             <EntityTypeMapping TypeName="evyemegiModel.district">
               <MappingFragment StoreEntitySet="district">
@@ -1008,6 +1215,7 @@
           <EntitySetMapping Name="food_catagory">
             <EntityTypeMapping TypeName="evyemegiModel.food_catagory">
               <MappingFragment StoreEntitySet="food_catagory">
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="food_catagory_name" ColumnName="food_catagory_name" />
                 <ScalarProperty Name="food_catagory_id" ColumnName="food_catagory_id" />
               </MappingFragment>
@@ -1016,6 +1224,7 @@
           <EntitySetMapping Name="foods">
             <EntityTypeMapping TypeName="evyemegiModel.foods">
               <MappingFragment StoreEntitySet="foods">
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="food_status" ColumnName="food_status" />
                 <ScalarProperty Name="food_catagory_id" ColumnName="food_catagory_id" />
                 <ScalarProperty Name="food_img_src" ColumnName="food_img_src" />
@@ -1118,7 +1327,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -8,5 +8,6 @@ namespace YemekSatış.Models.DTO
     public static class SabitlerDTO
     {
         public static long KullaniciID { get; set; }
+        public static bool KullaniciDURUM { get; set; }
     }
 }

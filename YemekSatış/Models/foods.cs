@@ -17,6 +17,7 @@ namespace YemekSatış.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public foods()
         {
+            this.Details = new HashSet<Details>();
             this.menu_detail = new HashSet<menu_detail>();
         }
     
@@ -25,8 +26,12 @@ namespace YemekSatış.Models
         public string food_img_src { get; set; }
         public byte food_catagory_id { get; set; }
         public bool food_status { get; set; }
+        public Nullable<long> userid { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Details> Details { get; set; }
         public virtual food_catagory food_catagory { get; set; }
+        public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<menu_detail> menu_detail { get; set; }
     }

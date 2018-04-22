@@ -13,5 +13,6 @@ namespace YemekSatış.Models.DTO
         public byte food_catagory_id { get; set; }
         public bool food_status { get; set; }
         public string CategoryName { get; set; }
+        public Nullable<long> userid { get; set; }
     }
 }

@@ -244,6 +244,7 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\Categories.js" />
+    <Content Include="scripts\Detay.js" />
     <Content Include="scripts\Profile.js" />
     <Content Include="scripts\SubCategories.js" />
     <Content Include="Web.config" />
@@ -264,12 +265,18 @@
     <Compile Include="Models\city.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Details.cs">
+      <DependentUpon>userDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\district.cs">
       <DependentUpon>userDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DTO\CategoriesAddDTO.cs" />
     <Compile Include="Models\DTO\CategoriesEditDTO.cs" />
     <Compile Include="Models\DTO\CategoriesListDTO.cs" />
+    <Compile Include="Models\DTO\DetailsAddDTO.cs" />
+    <Compile Include="Models\DTO\DetailsEditDTO.cs" />
+    <Compile Include="Models\DTO\DetailsListDTO.cs" />
     <Compile Include="Models\DTO\ProfileListDTO.cs" />
     <Compile Include="Models\DTO\SabitlerDTO.cs" />
     <Compile Include="Models\DTO\SubCategoriesAddDTO.cs" />
@@ -497,6 +504,7 @@
     <Content Include="Views\Panel\Profile.cshtml" />
     <Content Include="Views\Panel\Categories.cshtml" />
     <Content Include="Views\Panel\SubCategories.cshtml" />
+    <Content Include="Views\Panel\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

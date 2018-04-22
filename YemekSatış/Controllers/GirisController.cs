@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using YemekSatış.Models;
 using YemekSatış.Models.Musteri;
 namespace YemekSatış.Controllers
 {
     public class GirisController : Controller
     {
+        private evyemegiEntities1 db = new evyemegiEntities1();
         // GET: Giris
         public ActionResult GirisYap1()
         {
@@ -16,14 +18,14 @@ namespace YemekSatış.Controllers
         [HttpPost]
         public ActionResult KayitOl(KayitModel postData)
         {
-            bool result = new Models.Musteri.Kayit().KayitOl(postData) ;
+            bool result = new Models.Musteri.Kayit().KayitOl(postData);
 
             return RedirectToAction("GirisYap1", "Giris");
         }
         [HttpPost]
         public ActionResult GirisYap1(string Username, string Password)
         {
-            if(new Models.Giris.LoginState().IsLoginSucces(Username, Password))
+            if (new Models.Giris.LoginState().IsLoginSucces(Username, Password))
             {
                 return RedirectToAction("Index", "Panel");
 
@@ -35,6 +37,6 @@ namespace YemekSatış.Controllers
             Session.Clear();
             return RedirectToAction("GirisYap1", "Giris");
         }
-        
+      
     }
 }

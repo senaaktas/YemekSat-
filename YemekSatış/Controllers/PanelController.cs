@@ -64,12 +64,19 @@ namespace YemekSatış.Controllers
         }
         public ActionResult Categories()
         {
-            List<CategoriesListDTO> list = db.food_catagory.Where(x => x.food_catagory_id != null).Select(s => new CategoriesListDTO
+            if (SabitlerDTO.KullaniciDURUM == true)
             {
-                food_catagory_id = s.food_catagory_id,
-                food_catagory_name = s.food_catagory_name,
-            }).OrderByDescending(c => c.food_catagory_id).ToList();
-            return View(list);
+                List<CategoriesListDTO> list = db.food_catagory.Where(x => x.food_catagory_id != null).Select(s => new CategoriesListDTO
+                {
+                    food_catagory_id = s.food_catagory_id,
+                    food_catagory_name = s.food_catagory_name,
+                }).OrderByDescending(c => c.food_catagory_id).ToList();
+                return View(list);
+            }
+            else
+            {
+                return RedirectToAction("Profile", "Panel");
+            }
         }
         [HttpPost]
         public JsonResult KategoriYeni(CategoriesAddDTO entity)
@@ -107,12 +114,12 @@ namespace YemekSatış.Controllers
         {
             try
             {
-                CategoriesEditDTO list = db.food_catagory.Where(x => x.food_catagory_id ==id).Select(s => new CategoriesEditDTO
+                CategoriesEditDTO list = db.food_catagory.Where(x => x.food_catagory_id == id).Select(s => new CategoriesEditDTO
                 {
                     food_catagory_id = s.food_catagory_id,
                     food_catagory_name = s.food_catagory_name
                 }).FirstOrDefault();
-                return Json(list,JsonRequestBehavior.AllowGet);
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
@@ -127,20 +134,36 @@ namespace YemekSatış.Controllers
                 db.food_catagory.Remove(kategori);
                 db.SaveChanges();
             }
-            return Json(kategori,JsonRequestBehavior.AllowGet);
+            return Json(kategori, JsonRequestBehavior.AllowGet);
         }
         public ActionResult SubCategories()
         {
-            List<food_catagory> anaKategori = db.food_catagory.ToList();
-            ViewBag.slc_Categories = anaKategori;
-
-            List<SubCategoriesListDTO> list = db.foods.Where(x => x.food_id != null).Select(s => new SubCategoriesListDTO
+            if (SabitlerDTO.KullaniciDURUM == true)
             {
-                food_id=s.food_id,
-                food_name=s.food_name,
-                CategoryName=s.food_catagory.food_catagory_name,
-            }).OrderByDescending(c => c.food_id).ToList();
-            return View(list);
+                List<food_catagory> anaKategori = db.food_catagory.ToList();
+                ViewBag.slc_Categories = anaKategori;
+
+                List<SubCategoriesListDTO> list = db.foods.Where(x => x.food_id != null).Select(s => new SubCategoriesListDTO
+                {
+                    food_id = s.food_id,
+                    food_name = s.food_name,
+                    CategoryName = s.food_catagory.food_catagory_name,
+                }).OrderByDescending(c => c.food_id).ToList();
+                return View(list);
+            }
+            else
+            {
+                List<food_catagory> anaKategori = db.food_catagory.Where(x => x.userid == SabitlerDTO.KullaniciID).ToList();
+                ViewBag.slc_Categories = anaKategori;
+
+                List<SubCategoriesListDTO> list = db.foods.Where(x => x.food_id != null && x.userid == SabitlerDTO.KullaniciID).Select(s => new SubCategoriesListDTO
+                {
+                    food_id = s.food_id,
+                    food_name = s.food_name,
+                    CategoryName = s.food_catagory.food_catagory_name,
+                }).OrderByDescending(c => c.food_id).ToList();
+                return View(list);
+            }
         }
         [HttpPost]
         public JsonResult AltKategoriYeni(SubCategoriesAddDTO entity)
@@ -183,7 +206,7 @@ namespace YemekSatış.Controllers
             {
                 SubCategoriesEditDTO list = db.foods.Where(x => x.food_id == id).Select(s => new SubCategoriesEditDTO
                 {
-                    food_id=s.food_id,
+                    food_id = s.food_id,
                     food_catagory_id = s.food_catagory_id,
                     food_name = s.food_name
                 }).FirstOrDefault();
@@ -203,6 +226,92 @@ namespace YemekSatış.Controllers
                 db.SaveChanges();
             }
             return Json(kategori, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Details()
+        {
+            if (SabitlerDTO.KullaniciDURUM == true)
+            {
+                return View();
+            }
+            else
+            {
+                List<foods> anaKategori = db.foods.Where(x => x.userid == SabitlerDTO.KullaniciID).ToList();
+                ViewBag.slc_SubCategories = anaKategori;
+
+                List<DetailsListDTO> list = db.Details.Where(x => x.userid == SabitlerDTO.KullaniciID).Select(s => new DetailsListDTO
+                {
+                    Id=s.Id,
+                    KategoriName=s.foods.food_name,
+                    Details1=s.Details1
+                }).ToList();
+                return View(list);
+            }
+           
+        }
+        [HttpPost]
+        public JsonResult DetayYeni(DetailsAddDTO entity)
+        {
+            try
+            {
+                Details detay = new Details();
+                detay.KategoriID = entity.KategoriID;
+                detay.AltKategoriID = entity.AltKategoriID;
+                detay.Details1 = entity.Details1;
+                detay.userid = SabitlerDTO.KullaniciID;
+                db.Details.Add(detay);
+                db.SaveChanges();
+                return Json(detay, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        [HttpPost]
+        public JsonResult DetayDuzenle(DetailsEditDTO entity)
+        {
+            try
+            {
+                var detay = db.Details.Where(x => x.Id == entity.Id).FirstOrDefault();
+                detay.KategoriID = entity.KategoriID; //anakategori id si gönderilecek.
+                detay.AltKategoriID = entity.AltKategoriID;
+                detay.Details1 = entity.Details1;
+                detay.userid = SabitlerDTO.KullaniciID;
+                db.SaveChanges();
+                return Json(detay, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public JsonResult DetayBilgisiYukle(int id)
+        {
+            try
+            {
+                DetailsEditDTO list = db.Details.Where(x => x.Id == id).Select(s => new DetailsEditDTO
+                {
+                    Id = s.Id,
+                    AltKategoriID=s.AltKategoriID,
+                    Details1=s.Details1,
+                }).FirstOrDefault();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public JsonResult DetaySil(int id)
+        {
+            var detay = db.Details.Find(id);
+            if (detay != null)
+            {
+                db.Details.Remove(detay);
+                db.SaveChanges();
+            }
+            return Json(detay, JsonRequestBehavior.AllowGet);
         }
     }
 }

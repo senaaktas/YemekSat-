@@ -30,12 +30,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript" src="/Content/js/move-top.js"></script>
     <script type="text/javascript" src="/Content/js/easing.js"></script>
     <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-		});
-	});
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
     </script>
     <!-- start-smoth-scrolling -->
     @RenderSection("head", false)
@@ -69,10 +69,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="mega-dropdown-menu">
                         <div class="w3ls_vegetables">
                             <ul class="dropdown-menu drp-mnu">
-                                <li><a href="/Giris/LogOut">Çıkış Yap</a>
-                                <i class="fa fa-power-off"></i>
+                                <li>
+                                    <a href="/Giris/LogOut">Çıkış Yap</a>
+                                    <i class="fa fa-power-off"></i>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </div>
@@ -86,18 +87,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <!-- script-for sticky-nav -->
     <script>
-	$(document).ready(function() {
-		 var navoffeset=$(".agileits_header").offset().top;
-		 $(window).scroll(function(){
-			var scrollpos=$(window).scrollTop();
-			if(scrollpos >=navoffeset){
-				$(".agileits_header").addClass("fixed");
-			}else{
-				$(".agileits_header").removeClass("fixed");
-			}
-		 });
+        $(document).ready(function () {
+            var navoffeset = $(".agileits_header").offset().top;
+            $(window).scroll(function () {
+                var scrollpos = $(window).scrollTop();
+                if (scrollpos >= navoffeset) {
+                    $(".agileits_header").addClass("fixed");
+                } else {
+                    $(".agileits_header").removeClass("fixed");
+                }
+            });
 
-	});
+        });
     </script>
     <!-- //script-for sticky-nav -->
     <div class="logo_products">
@@ -136,53 +137,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+                <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+                <script type="text/javascript">
+                    function mutfakGetir() {
+                        $.ajax({
+                            url: '/home/MutfakListesiYukle',
+                            dataType: "json",
+                            type: "GET",
+                            success: function (data) {
+                                $.each(data, function (key, row) {
+                                    $('#mutfaklar').append('<li><a href="home/Index/' + row.food_catagory_id + '">' + row.food_catagory_name + '</a></li>');
+                                });
+                            }
+                        });
+                    }
+                    mutfakGetir();
+                </script>
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                    <ul class="nav navbar-nav nav_1">
-                        <li><a href="/Content/products.html">Branded Foods</a></li>
-                        <li><a href="/Content/household.html">Households</a></li>
-                        <li class="dropdown mega-dropdown active">
-                            <a href="/Content/#" class="dropdown-toggle" data-toggle="dropdown">Veggies & Fruits<span class="caret"></span></a>
-                            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                <div class="w3ls_vegetables">
-                                    <ul>
-                                        <li><a href="/Content/vegetables.html">Vegetables</a></li>
-                                        <li><a href="/Content/vegetables.html">Fruits</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="/Content/kitchen.html">Kitchen</a></li>
-                        <li><a href="/Content/short-codes.html">Short Codes</a></li>
-                        <li class="dropdown">
-                            <a href="/Content/#" class="dropdown-toggle" data-toggle="dropdown">Beverages<span class="caret"></span></a>
-                            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                <div class="w3ls_vegetables">
-                                    <ul>
-                                        <li><a href="/Content/drinks.html">Soft Drinks</a></li>
-                                        <li><a href="/Content/drinks.html">Juices</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="/Content/pet.html">Pet Food</a></li>
-                        <li class="dropdown">
-                            <a href="/Content/#" class="dropdown-toggle" data-toggle="dropdown">Frozen Foods<span class="caret"></span></a>
-                            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                <div class="w3ls_vegetables">
-                                    <ul>
-                                        <li><a href="/Content/frozen.html">Frozen Snacks</a></li>
-                                        <li><a href="/Content/frozen.html">Frozen Nonveg</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="/Content/bread.html">Bread & Bakery</a></li>
-                    </ul>
+                    <ul id="mutfaklar" class="nav navbar-nav nav_1"></ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>
-        
+
     </div>
     <!-- banner -->
     <!-- top-brands -->
@@ -287,58 +263,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Bootstrap Core JavaScript -->
     <script src="/Content/js/bootstrap.min.js"></script>
     <script>
-$(document).ready(function(){
-    $(".dropdown").hover(
-        function() {
-            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
-            $(this).toggleClass('open');
-        },
-        function() {
-            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
-            $(this).toggleClass('open');
-        }
-    );
-});
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
     </script>
     <!-- here stars scrolling icon -->
     <script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			*/
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
 
-			$().UItoTop({ easingType: 'easeOutQuart' });
+            $().UItoTop({ easingType: 'easeOutQuart' });
 
-			});
+        });
     </script>
     <!-- //here ends scrolling icon -->
     <script src="/Content/js/minicart.js"></script>
     <script>
-		paypal.minicart.render();
+        paypal.minicart.render();
 
-		paypal.minicart.cart.on('checkout', function (evt) {
-			var items = this.items(),
-				len = items.length,
-				total = 0,
-				i;
+        paypal.minicart.cart.on('checkout', function (evt) {
+            var items = this.items(),
+                len = items.length,
+                total = 0,
+                i;
 
-			// Count the number of each item in the cart
-			for (i = 0; i < len; i++) {
-				total += items[i].get('quantity');
-			}
+            // Count the number of each item in the cart
+            for (i = 0; i < len; i++) {
+                total += items[i].get('quantity');
+            }
 
-			if (total < 3) {
-				alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
-				evt.preventDefault();
-			}
-		});
+            if (total < 3) {
+                alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+                evt.preventDefault();
+            }
+        });
 
     </script>
-    @RenderSection("code",false)
+    @RenderSection("code", false)
 </body>
 </html>

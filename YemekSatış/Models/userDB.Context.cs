@@ -29,6 +29,7 @@ namespace YemekSatış.Models
     
         public virtual DbSet<admin> admin { get; set; }
         public virtual DbSet<city> city { get; set; }
+        public virtual DbSet<Details> Details { get; set; }
         public virtual DbSet<district> district { get; set; }
         public virtual DbSet<food_catagory> food_catagory { get; set; }
         public virtual DbSet<foods> foods { get; set; }
