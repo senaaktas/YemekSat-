@@ -7,10 +7,10 @@ namespace YemekSatış.Models
 {
     public class Kalitim
     {
-     public evyemegiEntities1 db { get; set; }
+     public evyemegiEntities db { get; set; }
         public Kalitim()
         {
-            db = new evyemegiEntities1();
+            db = new evyemegiEntities();
 
         }
         public void Dispose()

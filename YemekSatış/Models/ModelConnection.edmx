@@ -20,6 +20,17 @@
           <Property Name="admin_update_date" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="admin_tel" Type="nvarchar" MaxLength="13" Nullable="false" />
         </EntityType>
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="BasketID" />
+          </Key>
+          <Property Name="BasketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="SKU" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="city">
           <Key>
             <PropertyRef Name="city_id" />
@@ -158,6 +169,30 @@
           <Property Name="user_score" Type="float" />
           <Property Name="admin_status" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Basket_Basket">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_Details">
+          <End Role="Details" Type="Self.Details" Multiplicity="0..1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Details_food_catagory">
           <End Role="food_catagory" Type="Self.food_catagory" Multiplicity="0..1" />
           <End Role="Details" Type="Self.Details" Multiplicity="*" />
@@ -410,39 +445,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="evyemegiModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="city" EntityType="Self.city" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Details" EntityType="Self.Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="district" EntityType="Self.district" Schema="dbo" store:Type="Tables" />
@@ -455,6 +460,14 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="town" EntityType="Self.town" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Basket_Basket" Association="Self.FK_Basket_Basket">
+            <End Role="user" EntitySet="user" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_Details" Association="Self.FK_Basket_Details">
+            <End Role="Details" EntitySet="Details" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
           <AssociationSet Name="FK_Details_food_catagory" Association="Self.FK_Details_food_catagory">
             <End Role="food_catagory" EntitySet="food_catagory" />
             <End Role="Details" EntitySet="Details" />
@@ -544,38 +557,9 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="evyemegiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="evyemegiEntities1" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(evyemegiModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(evyemegiModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
+        <EntityContainer Name="evyemegiEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admin" EntityType="evyemegiModel.admin" />
+          <EntitySet Name="Basket" EntityType="evyemegiModel.Basket" />
           <EntitySet Name="city" EntityType="evyemegiModel.city" />
           <EntitySet Name="Details" EntityType="evyemegiModel.Details" />
           <EntitySet Name="district" EntityType="evyemegiModel.district" />
@@ -588,6 +572,14 @@
           <EntitySet Name="sysdiagrams" EntityType="evyemegiModel.sysdiagrams" />
           <EntitySet Name="town" EntityType="evyemegiModel.town" />
           <EntitySet Name="user" EntityType="evyemegiModel.user" />
+          <AssociationSet Name="FK_Basket_Basket" Association="evyemegiModel.FK_Basket_Basket">
+            <End Role="user" EntitySet="user" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Basket_Details" Association="evyemegiModel.FK_Basket_Details">
+            <End Role="Details" EntitySet="Details" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
           <AssociationSet Name="FK_district_city" Association="evyemegiModel.FK_district_city">
             <End Role="city" EntitySet="city" />
             <End Role="district" EntitySet="district" />
@@ -672,18 +664,7 @@
             <End Role="town" EntitySet="town" />
             <End Role="user" EntitySet="user" />
           </AssociationSet>
-          </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
+        </EntityContainer>
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -698,6 +679,19 @@
           <Property Name="admin_ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="admin_update_date" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="admin_tel" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="BasketID" />
+          </Key>
+          <Property Name="BasketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="SKU" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="user" Relationship="evyemegiModel.FK_Basket_Basket" FromRole="Basket" ToRole="user" />
+          <NavigationProperty Name="Details" Relationship="evyemegiModel.FK_Basket_Details" FromRole="Basket" ToRole="Details" />
         </EntityType>
         <EntityType Name="city">
           <Key>
@@ -722,6 +716,7 @@
           <Property Name="AltKategoriID" Type="Int32" />
           <Property Name="Details1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="userid" Type="Int64" />
+          <NavigationProperty Name="Basket" Relationship="evyemegiModel.FK_Basket_Details" FromRole="Details" ToRole="Basket" />
           <NavigationProperty Name="food_catagory" Relationship="evyemegiModel.FK_Details_food_catagory" FromRole="Details" ToRole="food_catagory" />
           <NavigationProperty Name="foods" Relationship="evyemegiModel.FK_Details_foods" FromRole="Details" ToRole="foods" />
           <NavigationProperty Name="user" Relationship="evyemegiModel.FK_Details_user" FromRole="Details" ToRole="user" />
@@ -869,6 +864,7 @@
           <Property Name="user_cep" Type="Int64" Nullable="false" />
           <Property Name="user_score" Type="Double" />
           <Property Name="admin_status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Basket" Relationship="evyemegiModel.FK_Basket_Basket" FromRole="user" ToRole="Basket" />
           <NavigationProperty Name="city" Relationship="evyemegiModel.FK_user_city" FromRole="user" ToRole="city" />
           <NavigationProperty Name="Details" Relationship="evyemegiModel.FK_Details_user" FromRole="user" ToRole="Details" />
           <NavigationProperty Name="district" Relationship="evyemegiModel.FK_user_district" FromRole="user" ToRole="district" />
@@ -879,6 +875,30 @@
           <NavigationProperty Name="street" Relationship="evyemegiModel.FK_user_street" FromRole="user" ToRole="street" />
           <NavigationProperty Name="town" Relationship="evyemegiModel.FK_user_town" FromRole="user" ToRole="town" />
         </EntityType>
+        <Association Name="FK_Basket_Basket">
+          <End Type="evyemegiModel.user" Role="user" Multiplicity="1" />
+          <End Type="evyemegiModel.Basket" Role="Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Basket_Details">
+          <End Type="evyemegiModel.Details" Role="Details" Multiplicity="0..1" />
+          <End Type="evyemegiModel.Basket" Role="Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_district_city">
           <End Type="evyemegiModel.city" Role="city" Multiplicity="1" />
           <End Type="evyemegiModel.district" Role="district" Multiplicity="*" />
@@ -1131,36 +1151,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="evyemegiModelStoreContainer" CdmEntityContainer="evyemegiEntities1">
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="evyemegiModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="evyemegiModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="evyemegiModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="evyemegiModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="evyemegiModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="evyemegiModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="evyemegiModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="evyemegiModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="evyemegiModel.Store.sp_upgraddiagrams" />
+        <EntityContainerMapping StorageEntityContainer="evyemegiModelStoreContainer" CdmEntityContainer="evyemegiEntities">
           <EntitySetMapping Name="admin">
             <EntityTypeMapping TypeName="evyemegiModel.admin">
               <MappingFragment StoreEntitySet="admin">
@@ -1174,6 +1170,18 @@
                 <ScalarProperty Name="admin_surname" ColumnName="admin_surname" />
                 <ScalarProperty Name="admin_name" ColumnName="admin_name" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basket">
+            <EntityTypeMapping TypeName="evyemegiModel.Basket">
+              <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="BasketID" ColumnName="BasketID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1327,7 +1335,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

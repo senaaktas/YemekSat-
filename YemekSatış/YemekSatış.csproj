@@ -178,15 +178,15 @@
     <Content Include="Content\vegetables.html" />
     <Content Include="Content\w3layouts-License.txt" />
     <Content Include="Global.asax" />
-    <Content Include="Models\userDB.Context.tt">
+    <Content Include="Models\ModelConnection.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>userDB.edmx</DependentUpon>
-      <LastGenOutput>userDB.Context.cs</LastGenOutput>
+      <DependentUpon>ModelConnection.edmx</DependentUpon>
+      <LastGenOutput>ModelConnection.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\userDB.tt">
+    <Content Include="Models\ModelConnection.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>userDB.edmx</DependentUpon>
-      <LastGenOutput>userDB.cs</LastGenOutput>
+      <DependentUpon>ModelConnection.edmx</DependentUpon>
+      <LastGenOutput>ModelConnection.cs</LastGenOutput>
     </Content>
     <Content Include="PanelStyle\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="PanelStyle\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -260,17 +260,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\admin.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Basket.cs">
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\city.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Details.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\district.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\BasketAddDTO.cs" />
+    <Compile Include="Models\DTO\BasketListDTO.cs" />
     <Compile Include="Models\DTO\CategoriesAddDTO.cs" />
     <Compile Include="Models\DTO\CategoriesEditDTO.cs" />
     <Compile Include="Models\DTO\CategoriesListDTO.cs" />
@@ -283,56 +288,50 @@
     <Compile Include="Models\DTO\SubCategoriesEditDTO.cs" />
     <Compile Include="Models\DTO\SubCategoriesListDTO.cs" />
     <Compile Include="Models\foods.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\food_catagory.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Giris\LoginState.cs" />
     <Compile Include="Models\Kalitim.cs" />
     <Compile Include="Models\menu.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\menu_detail.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelConnection.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelConnection.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelConnection.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelConnection.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelConnection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Musteri\Kayit.cs" />
     <Compile Include="Models\Musteri\KayitModel.cs" />
     <Compile Include="Models\order.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\street.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\town.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>userDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\userDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>userDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\userDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>userDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\userDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>userDB.edmx</DependentUpon>
+      <DependentUpon>ModelConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -345,13 +344,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_viewstart.cshtml" />
     <Content Include="Views\home\Index.cshtml" />
-    <EntityDeploy Include="Models\userDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>userDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\userDB.edmx.diagram">
-      <DependentUpon>userDB.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Giris\GirisYap1.cshtml" />
     <Content Include="Views\Shared\_PanelLayout.cshtml" />
     <Content Include="Views\Panel\Index.cshtml" />
@@ -507,6 +499,13 @@
     <Content Include="Views\Panel\Details.cshtml" />
     <Content Include="Views\home\Mutfaklar.cshtml" />
     <Content Include="Views\home\MutfakDetay.cshtml" />
+    <EntityDeploy Include="Models\ModelConnection.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelConnection.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelConnection.edmx.diagram">
+      <DependentUpon>ModelConnection.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

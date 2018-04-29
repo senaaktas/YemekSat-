@@ -9,7 +9,7 @@ namespace YemekSatış.Models.Musteri
     {
         public Kayit ()
         {
-            base.db = new evyemegiEntities1();           
+            base.db = new evyemegiEntities();           
         }
         public bool KayitOl(KayitModel model)
         {

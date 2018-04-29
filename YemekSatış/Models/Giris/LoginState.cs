@@ -8,10 +8,10 @@ namespace YemekSatış.Models.Giris
 {
     public class LoginState
     {
-        private evyemegiEntities1 db;
+        private evyemegiEntities db;
         public LoginState()
         {
-            db = new evyemegiEntities1();
+            db = new evyemegiEntities();
         }
         public bool IsLoginSucces(string user , string pas)
         {

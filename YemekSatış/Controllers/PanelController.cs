@@ -10,7 +10,7 @@ namespace YemekSatış.Controllers
 {
     public class PanelController : Controller
     {
-        private evyemegiEntities1 db = new evyemegiEntities1();
+        private evyemegiEntities db = new evyemegiEntities();
 
         public ActionResult Index()
         {

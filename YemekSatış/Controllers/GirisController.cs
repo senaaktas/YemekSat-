@@ -9,7 +9,7 @@ namespace YemekSatış.Controllers
 {
     public class GirisController : Controller
     {
-        private evyemegiEntities1 db = new evyemegiEntities1();
+        private evyemegiEntities db = new evyemegiEntities();
         // GET: Giris
         public ActionResult GirisYap1()
         {

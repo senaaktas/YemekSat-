@@ -14,12 +14,20 @@ namespace YemekSatış.Models
     
     public partial class Details
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Details()
+        {
+            this.Basket = new HashSet<Basket>();
+        }
+    
         public int Id { get; set; }
         public Nullable<byte> KategoriID { get; set; }
         public Nullable<int> AltKategoriID { get; set; }
         public string Details1 { get; set; }
         public Nullable<long> userid { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Basket { get; set; }
         public virtual food_catagory food_catagory { get; set; }
         public virtual foods foods { get; set; }
         public virtual user user { get; set; }

@@ -17,6 +17,7 @@ namespace YemekSatış.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public user()
         {
+            this.Basket = new HashSet<Basket>();
             this.Details = new HashSet<Details>();
             this.food_catagory = new HashSet<food_catagory>();
             this.foods = new HashSet<foods>();
@@ -42,6 +43,8 @@ namespace YemekSatış.Models
         public Nullable<double> user_score { get; set; }
         public bool admin_status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Basket> Basket { get; set; }
         public virtual city city { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Details> Details { get; set; }

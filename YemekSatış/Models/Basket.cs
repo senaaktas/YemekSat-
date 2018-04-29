@@ -10,13 +10,18 @@
 namespace YemekSatış.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class Basket
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public int BasketID { get; set; }
+        public long CustomerID { get; set; }
+        public Nullable<int> ProductID { get; set; }
+        public Nullable<int> SKU { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Total { get; set; }
+    
+        public virtual user user { get; set; }
+        public virtual Details Details { get; set; }
     }
 }
