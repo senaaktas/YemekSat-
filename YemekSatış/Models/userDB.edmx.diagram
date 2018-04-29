@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5b3bdd2a1ebc47d4b63d04ee9134d7c2" Name="Diagram1">
+      <Diagram DiagramId="5b3bdd2a1ebc47d4b63d04ee9134d7c2" Name="Diagram1" ZoomLevel="47">
         <EntityTypeShape EntityType="evyemegiModel.admin" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="evyemegiModel.city" Width="1.5" PointX="0.75" PointY="7" />
         <EntityTypeShape EntityType="evyemegiModel.Details" Width="1.5" PointX="14.25" PointY="12.625" />

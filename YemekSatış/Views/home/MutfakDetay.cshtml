@@ -1,0 +1,27 @@
+﻿@model IEnumerable<YemekSatış.Models.DTO.DetailsListDTO>
+@{
+    ViewBag.Title = "MutfakDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="banner" style="background-color:white;">
+    <div class="w3l_banner_nav_right" style="background-color:white;">
+        <div class="w3l_banner_nav_right_banner3_btm">
+
+            @foreach (var item in Model)
+            {
+                if (Model != null)
+                {
+                    <div class="col-md-4 w3l_banner_nav_right_banner3_btml" style="background-color:white;">
+                        <ol>
+                            <li style="color:black;font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'">@item.Details1</li>
+                        </ol>
+                    </div>
+                }
+            }
+            <div class="clearfix"> </div>
+        </div>
+
+    </div>
+</div>
+

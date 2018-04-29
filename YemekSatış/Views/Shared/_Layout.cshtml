@@ -146,7 +146,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             type: "GET",
                             success: function (data) {
                                 $.each(data, function (key, row) {
-                                    $('#mutfaklar').append('<li><a href="home/Index/' + row.food_catagory_id + '">' + row.food_catagory_name + '</a></li>');
+                                    $('#mutfaklar').append('<li><a href="http://localhost:62175/home/Mutfaklar/' + row.food_catagory_id + '">' + row.food_catagory_name + '</a></li>');
                                 });
                             }
                         });

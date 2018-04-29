@@ -505,6 +505,8 @@
     <Content Include="Views\Panel\Categories.cshtml" />
     <Content Include="Views\Panel\SubCategories.cshtml" />
     <Content Include="Views\Panel\Details.cshtml" />
+    <Content Include="Views\home\Mutfaklar.cshtml" />
+    <Content Include="Views\home\MutfakDetay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
