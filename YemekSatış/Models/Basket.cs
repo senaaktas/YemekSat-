@@ -20,6 +20,7 @@ namespace YemekSatış.Models
         public Nullable<int> SKU { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public Nullable<long> userid { get; set; }
     
         public virtual user user { get; set; }
         public virtual Details Details { get; set; }

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<YemekSatış.Models.DTO.BasketListDTO>
+@{
+    ViewBag.Title = "Sepet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9 col-xs-9">
+        <h3>SEPETİM</h3>
+        <div class="white-box">
+            <table id="tblBasketList" class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr class="text-center">
+                        <th class="text-center">#</th>
+                        <th class="text-center">BAŞLIK</th>
+                        <th class="text-center">ADET</th>
+                        <th class="text-center">TUTAR</th>
+                        <th class="text-center">TOPLAM</th>
+                        <th class="text-center"> </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    @if (Model != null)
+                    {
+
+                        int sayac = 1;
+                        decimal toplam = 0;
+                        foreach (var item in Model)
+                        {
+                            toplam = (decimal)toplam +(decimal)item.Total;
+                            <tr data-id="@item.BasketID">
+                                <td class="text-right bold">@(sayac++)</td>
+                                <td> @item.DetayName </td>
+                                <td class="text-center"> @item.SKU </td>
+                                <td class="text-right"> @item.Price ₺</td>
+                                <td class="text-right"> @item.Total ₺</td>
+                                <td class="text-center">
+                                    <a data-id="@item.BasketID" id="BasketSil" href="javascript:;" title="Sil">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="4"></td>
+                            <td class="text-right"> @(toplam) ₺</td>
+                            <td></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/scripts/Basket.js"></script>

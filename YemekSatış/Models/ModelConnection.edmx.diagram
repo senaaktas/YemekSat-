@@ -6,19 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="6deaf99d7c2b476ebef061936179c625" Name="Diagram1">
         <EntityTypeShape EntityType="evyemegiModel.admin" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="evyemegiModel.Basket" Width="1.5" PointX="12" PointY="10.875" />
-        <EntityTypeShape EntityType="evyemegiModel.city" Width="1.5" PointX="0.75" PointY="8.875" />
-        <EntityTypeShape EntityType="evyemegiModel.Details" Width="1.5" PointX="14.25" PointY="14.125" />
-        <EntityTypeShape EntityType="evyemegiModel.district" Width="1.5" PointX="5.25" PointY="10.625" />
-        <EntityTypeShape EntityType="evyemegiModel.food_catagory" Width="1.5" PointX="12" PointY="19.875" />
-        <EntityTypeShape EntityType="evyemegiModel.foods" Width="1.5" PointX="17.25" PointY="14.125" />
-        <EntityTypeShape EntityType="evyemegiModel.menu" Width="1.5" PointX="12" PointY="16" />
-        <EntityTypeShape EntityType="evyemegiModel.menu_detail" Width="1.5" PointX="19.5" PointY="15.625" />
-        <EntityTypeShape EntityType="evyemegiModel.order" Width="1.5" PointX="14.25" PointY="9.75" />
-        <EntityTypeShape EntityType="evyemegiModel.street" Width="1.5" PointX="7.5" PointY="10.625" />
+        <EntityTypeShape EntityType="evyemegiModel.Basket" Width="1.5" PointX="12" PointY="11.125" />
+        <EntityTypeShape EntityType="evyemegiModel.city" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="evyemegiModel.Details" Width="1.5" PointX="14.25" PointY="14.625" />
+        <EntityTypeShape EntityType="evyemegiModel.district" Width="1.5" PointX="5.25" PointY="11" />
+        <EntityTypeShape EntityType="evyemegiModel.food_catagory" Width="1.5" PointX="12" PointY="20.75" />
+        <EntityTypeShape EntityType="evyemegiModel.foods" Width="1.5" PointX="17.25" PointY="14.75" />
+        <EntityTypeShape EntityType="evyemegiModel.menu" Width="1.5" PointX="12" PointY="16.875" />
+        <EntityTypeShape EntityType="evyemegiModel.menu_detail" Width="1.5" PointX="19.5" PointY="16.375" />
+        <EntityTypeShape EntityType="evyemegiModel.order" Width="1.5" PointX="14.25" PointY="10.375" />
+        <EntityTypeShape EntityType="evyemegiModel.street" Width="1.5" PointX="7.5" PointY="11" />
         <EntityTypeShape EntityType="evyemegiModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="evyemegiModel.town" Width="1.5" PointX="3" PointY="12.75" />
-        <EntityTypeShape EntityType="evyemegiModel.user" Width="1.5" PointX="9.75" PointY="9.125" />
+        <EntityTypeShape EntityType="evyemegiModel.town" Width="1.5" PointX="3" PointY="13.125" />
+        <EntityTypeShape EntityType="evyemegiModel.user" Width="1.5" PointX="9.75" PointY="9.375" />
         <AssociationConnector Association="evyemegiModel.FK_Basket_Basket" />
         <AssociationConnector Association="evyemegiModel.FK_Basket_Details" />
         <AssociationConnector Association="evyemegiModel.FK_district_city" />

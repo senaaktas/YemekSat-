@@ -33,9 +33,11 @@
         $("#hdn_id").val("");
     });
     $("#tblDetailsList").delegate("#DetayDuzenle", "click", function () {
-
+        debugger;
         $("#hdn_id").val("");
         $("#Details").val("");
+        $("#txt_SKU").val("");
+        $("#txt_Price").val("");
 
         var id = $(this).attr("data-id");
         $("#hdn_id").val(id);
@@ -48,8 +50,11 @@
             cache: false,
             processData: false,
             success: function (data, textStatus, jqXHR) {
+                debugger;
                 $('#slc_food_id').val(data.AltKategoriID);
                 $("#txt_Details").val(data.Details1);
+                $("#txt_SKU").val(data.SKU);
+                $("#txt_Price").val(data.Price);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status == 403) {
@@ -77,7 +82,6 @@
                             $(tr).remove();
                         });
                     }
-
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (jqXHR.status == 403) {
@@ -91,5 +95,7 @@
         $("#hdn_id").val("");
         $("#slc_food_id").val("");
         $("#txt_Details").val("");
+        $("#txt_SKU").val("");
+        $("#txt_Price").val("");
     });
 });

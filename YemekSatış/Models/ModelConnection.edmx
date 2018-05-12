@@ -30,6 +30,7 @@
           <Property Name="SKU" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="userid" Type="bigint" />
         </EntityType>
         <EntityType Name="city">
           <Key>
@@ -49,6 +50,8 @@
           <Property Name="KategoriID" Type="tinyint" />
           <Property Name="AltKategoriID" Type="int" />
           <Property Name="Details" Type="varchar" MaxLength="100" />
+          <Property Name="SKU" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
           <Property Name="userid" Type="bigint" />
         </EntityType>
         <EntityType Name="district">
@@ -690,6 +693,7 @@
           <Property Name="SKU" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="userid" Type="Int64" />
           <NavigationProperty Name="user" Relationship="evyemegiModel.FK_Basket_Basket" FromRole="Basket" ToRole="user" />
           <NavigationProperty Name="Details" Relationship="evyemegiModel.FK_Basket_Details" FromRole="Basket" ToRole="Details" />
         </EntityType>
@@ -715,6 +719,8 @@
           <Property Name="KategoriID" Type="Byte" />
           <Property Name="AltKategoriID" Type="Int32" />
           <Property Name="Details1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SKU" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="userid" Type="Int64" />
           <NavigationProperty Name="Basket" Relationship="evyemegiModel.FK_Basket_Details" FromRole="Details" ToRole="Basket" />
           <NavigationProperty Name="food_catagory" Relationship="evyemegiModel.FK_Details_food_catagory" FromRole="Details" ToRole="food_catagory" />
@@ -1151,7 +1157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1176,6 +1182,7 @@
           <EntitySetMapping Name="Basket">
             <EntityTypeMapping TypeName="evyemegiModel.Basket">
               <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="SKU" ColumnName="SKU" />
@@ -1200,6 +1207,8 @@
             <EntityTypeMapping TypeName="evyemegiModel.Details">
               <MappingFragment StoreEntitySet="Details">
                 <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
                 <ScalarProperty Name="Details1" ColumnName="Details" />
                 <ScalarProperty Name="AltKategoriID" ColumnName="AltKategoriID" />
                 <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />

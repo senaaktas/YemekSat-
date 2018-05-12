@@ -234,19 +234,19 @@ namespace YemekSatış.Controllers
                 return View();
             }
             else
-            {
+            {                
                 List<foods> anaKategori = db.foods.Where(x => x.userid == SabitlerDTO.KullaniciID).ToList();
                 ViewBag.slc_SubCategories = anaKategori;
-
+               
                 List<DetailsListDTO> list = db.Details.Where(x => x.userid == SabitlerDTO.KullaniciID).Select(s => new DetailsListDTO
                 {
-                    Id=s.Id,
-                    KategoriName=s.foods.food_name,
-                    Details1=s.Details1
+                    Id = s.Id,
+                    KategoriName = s.foods.food_name,
+                    Details1 = s.Details1
                 }).ToList();
                 return View(list);
             }
-           
+
         }
         [HttpPost]
         public JsonResult DetayYeni(DetailsAddDTO entity)
@@ -254,9 +254,11 @@ namespace YemekSatış.Controllers
             try
             {
                 Details detay = new Details();
-                detay.KategoriID = entity.KategoriID;
+                detay.KategoriID =(byte)anakategoriIDGetir();
                 detay.AltKategoriID = entity.AltKategoriID;
                 detay.Details1 = entity.Details1;
+                detay.SKU = entity.SKU;
+                detay.Price = entity.Price;
                 detay.userid = SabitlerDTO.KullaniciID;
                 db.Details.Add(detay);
                 db.SaveChanges();
@@ -268,15 +270,34 @@ namespace YemekSatış.Controllers
             }
 
         }
+        int anakategoriIDGetir()
+        {
+            try
+            {
+                CategoriesListDTO id = db.food_catagory.Where(x => x.userid == SabitlerDTO.KullaniciID).Select(s => new CategoriesListDTO
+                {
+                    food_catagory_id= s.food_catagory_id
+                }).FirstOrDefault();
+                int kID = id.food_catagory_id;
+                return Convert.ToInt32(kID);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
         [HttpPost]
         public JsonResult DetayDuzenle(DetailsEditDTO entity)
         {
             try
             {
                 var detay = db.Details.Where(x => x.Id == entity.Id).FirstOrDefault();
-                detay.KategoriID = entity.KategoriID; //anakategori id si gönderilecek.
+              //  detay.KategoriID = entity.KategoriID; //anakategori id si gönderilecek.
                 detay.AltKategoriID = entity.AltKategoriID;
                 detay.Details1 = entity.Details1;
+                detay.SKU = entity.SKU;
+                detay.Price = entity.Price;
                 detay.userid = SabitlerDTO.KullaniciID;
                 db.SaveChanges();
                 return Json(detay, JsonRequestBehavior.AllowGet);
@@ -293,8 +314,10 @@ namespace YemekSatış.Controllers
                 DetailsEditDTO list = db.Details.Where(x => x.Id == id).Select(s => new DetailsEditDTO
                 {
                     Id = s.Id,
-                    AltKategoriID=s.AltKategoriID,
-                    Details1=s.Details1,
+                    AltKategoriID = s.AltKategoriID,
+                    Details1 = s.Details1,
+                    SKU = s.SKU,
+                    Price = s.Price
                 }).FirstOrDefault();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }

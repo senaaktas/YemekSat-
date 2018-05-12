@@ -243,6 +243,7 @@
     <Content Include="PanelStyle\less\spinners.css" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\Basket.js" />
     <Content Include="scripts\Categories.js" />
     <Content Include="scripts\Detay.js" />
     <Content Include="scripts\Profile.js" />
@@ -506,6 +507,7 @@
     <Content Include="Models\ModelConnection.edmx.diagram">
       <DependentUpon>ModelConnection.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\home\Sepet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

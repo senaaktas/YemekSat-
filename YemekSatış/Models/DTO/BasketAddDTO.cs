@@ -13,5 +13,6 @@ namespace YemekSatış.Models.DTO
         public Nullable<int> SKU { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public Nullable<long> userid { get; set; }
     }
 }

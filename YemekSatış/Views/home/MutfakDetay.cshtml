@@ -15,8 +15,10 @@
                         <div class="col-md-4 w3l_banner_nav_right_banner3_btml" style="background-color:white;">
                             <ol>
                                 <li style="color:black;font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'">@item.Details1</li>
+                                <li style="color:black;font-family:'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'">@item.Price</li>
+                                <input type="hidden" name="Price" value="@item.Price" />
                                 <input type="hidden" id="hdnProductID" name="ProductID" value="@item.Id" />
-                                <input type="number" name="SKU" class="form-control bfh-number" data-min="1" data-max="25" data-wrap="true"  />
+                                <input type="number" name="SKU" class="form-control bfh-number" required data-min="1" data-max="25" data-wrap="true" />
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">
                                         <input type="submit" name="submit" value="Sepete ekle" class="button">
